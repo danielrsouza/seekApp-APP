@@ -1,0 +1,46 @@
+<ion-header style="margin-bottom: 1em;">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Cadastre-se</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="formCadastrese" (ngSubmit)="cadastrese()">
+  <ion-item lines="full">
+    <ion-label position="floating">Nome</ion-label>
+    <ion-input  type="text" formControlName="nome"></ion-input>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label position="floating">Email</ion-label>
+    <ion-input  type="email" formControlName="email"></ion-input>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label position="floating">Senha</ion-label>
+    <ion-input  type="password" formControlName="password"></ion-input>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label position="floating">Telefone</ion-label>
+    <ion-input  type="text" formControlName="telefone"></ion-input>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label position="floating">Data de Nascimento</ion-label>
+    <ion-input  type="date" formControlName="data_nascimento"></ion-input>
+  </ion-item>
+
+
+  <ion-row>
+    <ion-col *ngIf="!spinnerLoading">
+      <ion-button color="primary" expand="block" type="submit" >Entrar</ion-button>
+    </ion-col>
+  </ion-row>
+</form>
+
+</ion-content>
+
+<ion-content *ngIf="spinnerLoading"  class="spinnerCenter">
+  <ion-spinner name="crescent"></ion-spinner>
+</ion-content>
+
