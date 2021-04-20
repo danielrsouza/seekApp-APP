@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  api_url: 'http://127.0.0.1:8000',
-  client_id: 1,
-  client_secret: 'WpfOcFQ19TtYHRBtC9rXazqJcpee1llRaas064f9'
+  api_url: 'https://seekappapi.herokuapp.com',
+  client_id: 10,
+  client_secret: 'gxktLgDhYD2DfjHGvqhMUMZmI9MINKl8fKc7miHQ'
 };
 
 /*

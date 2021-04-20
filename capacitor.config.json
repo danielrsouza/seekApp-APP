@@ -1,0 +1,15 @@
+{
+  "appId": "com.example.app",
+  "appName": "seekApp-APP",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "server": {
+    "hostname": "https://seekappapi.herokuapp.com"
+  }
+}

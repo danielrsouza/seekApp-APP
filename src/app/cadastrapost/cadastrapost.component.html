@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>Cadastra Post</ion-title>
+  </ion-toolbar>
+</ion-header>
+ 
+<ion-content>
+ 
+  <form [formGroup]="formPost" (ngSubmit)="login()">
+      <ion-item>
+        <ion-input type="text" placeholder="Descricao" formControlName="descricao"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="file" placeholder="Imagem" formControlName="imagem"></ion-input>
+      </ion-item>
+
+  </form>
+</ion-content>

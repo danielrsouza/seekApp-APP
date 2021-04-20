@@ -1,5 +1,7 @@
 {
   "name": "seekApp-APP",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

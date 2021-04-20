@@ -29,6 +29,7 @@ export class ApiService {
      * @param endpoint
      */
     public get(endpoint: string): Observable<any> {
+        
         return this.httpClient.get(`${environment.api_url}${endpoint}`);
 
     }

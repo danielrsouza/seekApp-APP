@@ -33,9 +33,10 @@ export class LoginComponent implements OnInit {
     this.user = this.formLogin.value;
 
     this.authService.login(this.user).subscribe((response) => {
+      console.log(response);
       if (response.access_token) {
         this.spinnerLoading = false
-        sessionStorage.setItem('token', response.token);
+        localStorage.setItem('token', response.access_token);
         this.presentToast();
         this.router.navigateByUrl('home')
       }

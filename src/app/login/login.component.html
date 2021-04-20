@@ -1,32 +1,39 @@
-<ion-header style="margin-bottom: 1em;">
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button></ion-back-button>
-      </ion-buttons>
-      <ion-title>Login</ion-title>
-    </ion-toolbar>
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
 </ion-header>
-  
-<ion-content>
-  <form [formGroup]="formLogin" (ngSubmit)="login()">
-        <ion-item lines="full">
-          <ion-label position="floating">Email</ion-label>
-          <ion-input formControlName="email" type="text" value=""></ion-input>
-        </ion-item>
-    
-        <ion-item lines="full">
-          <ion-label position="floating">Password</ion-label>
-          <ion-input formControlName="password" type="password" value=""></ion-input>
-        </ion-item>
-    
-        <ion-row>
-          <ion-col *ngIf="!spinnerLoading">
-            <ion-button color="primary" expand="block" type="submit">Entrar</ion-button>
-          </ion-col>
-        </ion-row>
-      </form>
-</ion-content>
 
-<ion-content *ngIf="spinnerLoading"  class="spinnerCenter">
-  <ion-spinner name="crescent"></ion-spinner>
+<ion-content class="fundo">
+  <ion-grid class="imagem">
+    <img src="./../../assets/search.png">
+  </ion-grid>
+  
+  <ion-grid>
+    <form [formGroup]="formLogin" (ngSubmit)="login()" class="fundo">
+        <ion-row>
+          <ion-input formControlName="email" type="text" value="" placeholder="Email"></ion-input>
+        </ion-row>
+        <ion-row>
+          <ion-input formControlName="password" type="password" value="" placeholder="Senha"></ion-input>
+        </ion-row>
+        <ion-row>
+          <a href="">Esqueci minha senha</a>
+        </ion-row>
+      <ion-row class="buttons">
+        <ion-col *ngIf="!spinnerLoading">
+          <ion-button color="dark" expand="block" type="submit">Entrar</ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+
+  </ion-grid>
+
+  <ion-content *ngIf="spinnerLoading"  class="spinnerCenter"  class="fundo">
+    <ion-spinner name="crescent"></ion-spinner>
+  </ion-content>
+
 </ion-content>

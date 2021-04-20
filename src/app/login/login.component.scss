@@ -4,3 +4,27 @@ ion-spinner {
     margin-top: 2em;
     color: blue;
 }
+
+.fundo {
+    --background: linear-gradient(rgba(255,235,77,0.4), rgba(255,235,77,1));
+}
+
+.imagem{
+    width: 70%;
+    margin-left: -2em;
+}
+
+ion-input {
+    border-bottom: 1px solid black;
+    --padding-bottom: 10px;
+    --placeholder-color: black;
+    font-size: 1.3em;
+}
+
+ion-row{
+    margin: 10px;
+}
+
+.buttons {
+    margin-top: 10%;
+}

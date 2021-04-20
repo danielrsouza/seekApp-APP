@@ -12,13 +12,7 @@ import { ApiService } from '../services/api.service';
 })
 export class AuthService {
 
-  private logged = new BehaviorSubject<Boolean>(false);
-
-  get isLoggedIn(): Observable<any> {
-    return this.logged.asObservable();
-  }
-
-  constructor(private http: HttpClient, private apiService: ApiService) { }
+  constructor(private http: HttpClient) { }
 
   public login(user: UsuarioLogin): Observable<any>{
     const params = {
@@ -30,5 +24,20 @@ export class AuthService {
     }
     return this.http.post<any>(`${environment.api_url}/oauth/token`, {...params});
 
+  }
+
+  public getToken(): string {
+    return localStorage.getItem('token');
+  }
+
+  public isAuthenticated(): boolean {
+    // get the token
+    const token = this.getToken();
+
+    if (token) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
