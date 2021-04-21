@@ -1,12 +1,13 @@
 <ion-header>
   <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>Cadastra Post</ion-title>
   </ion-toolbar>
 </ion-header>
- 
 <ion-content>
- 
-  <form [formGroup]="formPost" (ngSubmit)="login()">
+  <form [formGroup]="formPost" (ngSubmit)="persistPost()">
       <ion-item>
         <ion-input type="text" placeholder="Descricao" formControlName="descricao"></ion-input>
       </ion-item>
@@ -14,5 +15,14 @@
         <ion-input type="file" placeholder="Imagem" formControlName="imagem"></ion-input>
       </ion-item>
 
+      <ion-row>
+        <ion-col *ngIf="!spinnerLoading">
+          <ion-button color="dark" expand="block" type="submit">Cadastrar</ion-button>
+        </ion-col>
+      </ion-row>
   </form>
+  <ion-content *ngIf="spinnerLoading"  class="spinnerCenter" class="fundo">
+    <ion-spinner name="crescent"></ion-spinner>
+  </ion-content>
 </ion-content>
+

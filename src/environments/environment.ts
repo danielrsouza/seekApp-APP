@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   api_url: 'https://seekappapi.herokuapp.com',
-  client_id: 10,
-  client_secret: 'gxktLgDhYD2DfjHGvqhMUMZmI9MINKl8fKc7miHQ'
+  client_id: 1,
+  client_secret: 'coaJM1JlbgYe3Angl3o2GunOfDvAyQzPbS2H7tf3'
 };
 
 /*

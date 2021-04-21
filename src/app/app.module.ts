@@ -14,9 +14,10 @@ import { CadastreseComponent } from './cadastrese/cadastrese.component';
 import { LoginModule } from './login/login/login.module';
 import { CadastreseModule } from './cadastrese/cadastrese/cadastrese.module';
 import { TokenInterceptor } from './auth/token.interceptor';
+import { CadastrapostComponent } from './cadastrapost/cadastrapost.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, CadastreseComponent],
+  declarations: [AppComponent, LoginComponent, CadastreseComponent, CadastrapostComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, ReactiveFormsModule, CommonModule, LoginModule, CadastreseModule, FormsModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
