@@ -36,4 +36,10 @@ export class PostService {
   {
     return this.apiService.delete(`${this.endpoint}/${id}`)
   }
+
+  buscaPostPorId(id)
+  {
+    console.log('aqui', `${this.endpoint}/${id}`)
+    return this.apiService.get(`${this.endpoint}/${id}`)
+  }
 }

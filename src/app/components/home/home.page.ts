@@ -35,6 +35,13 @@ export class HomePage implements OnInit{
     this.router.navigateByUrl('cadastrapost');
   }
 
+  detalhePost(post)
+  {
+    this.router.navigate(['detalhepost'], {
+      queryParams: post
+    });
+  }
+
   deletePost(post)
   {
     this.postService.deletaPost(post.id).subscribe(resp => {

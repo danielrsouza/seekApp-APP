@@ -15,4 +15,10 @@ export class UserService {
     const endpoint = "/api/users";
     return this.apiService.get(endpoint)
   }
+
+  buscaUserPorId(id): Observable<Usuario>
+  {
+    const endpoint = "/api/users";
+    return this.apiService.get(`${endpoint}/${id}`)
+  }
 }

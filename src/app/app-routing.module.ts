@@ -23,6 +23,10 @@ const routes: Routes = [
     loadChildren: () => import('./cadastrapost/cadastrapost-routing.module').then( m => m.CadastraPostPageRoutingModule)
   },
   {
+    path: 'detalhepost',
+    loadChildren: () => import('./detalhe-post/detalhe-post-routing.module').then( m => m.DetalhePostRoutingModule)
+  },
+  {
     path: '',
     redirectTo: 'inicio',
     pathMatch: 'full'
