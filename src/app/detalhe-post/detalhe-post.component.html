@@ -1,11 +1,11 @@
-<ion-toolbar color="dark">
-  <ion-buttons slot="secondary">
-    <ion-button>
-      <ion-icon slot="icon-only" name="person-circle"></ion-icon>
-    </ion-button>
-  </ion-buttons>
-  <ion-title>Timeline</ion-title>
-</ion-toolbar>
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalhes do Post</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content [fullscreen]="true">
   <ion-card>
     <ion-card-header>
@@ -19,7 +19,14 @@
       <ion-icon class="chatbox" name="chatbox"></ion-icon>
     </ion-card-content>
   </ion-card>
-  <ion-content >
+
+  <ion-content *ngIf="!show">
+      <ion-card-content>
+        <strong>Nenhum comentário nesse post!</strong>
+      </ion-card-content>
+  </ion-content>
+
+  <ion-content>
     <ion-card *ngFor="let comentario of comentarios">
       <ion-card-header>
         <ion-card-title>{{comentario.users.nome}}</ion-card-title>
@@ -30,4 +37,6 @@
     </ion-card>
   </ion-content>
 </ion-content>
+
+
 

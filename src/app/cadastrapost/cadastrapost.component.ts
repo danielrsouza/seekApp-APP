@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { ToastController } from '@ionic/angular';
 import { Post } from '../classes/post';
 import { Usuario } from '../classes/usuario';
@@ -17,12 +18,14 @@ export class CadastrapostComponent implements OnInit {
   post: Post;
   spinnerLoading = false;
   currentUser: Usuario
+  imageUrl
 
   constructor(    
     private fb: FormBuilder,
     public toastController: ToastController,
     private router: Router,
-    private postService: PostService
+    private postService: PostService,
+    private camera: Camera,
   ) { }
 
   ngOnInit() {
@@ -35,6 +38,8 @@ export class CadastrapostComponent implements OnInit {
     this.spinnerLoading = true
     this.post = this.formPost.value
     this.post.id_usuario = this.currentUser.id;
+    this.post.imagem = this.imageUrl;
+    
 
     this.postService.cadastra(this.post).subscribe(post => {
       this.spinnerLoading = false;
@@ -44,12 +49,33 @@ export class CadastrapostComponent implements OnInit {
 
   }
 
+  abriGaleria()
+  {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    }
+
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64 (DATA_URL):
+      let base64Image = 'data:image/jpeg;base64,' + imageData;
+      this.imageUrl = base64Image;
+      
+     }, (err) => {
+      // Handle error
+     });
+  }
+
 
   criaFormulario(post: Post)
   {
     this.formPost = this.fb.group({
       descricao: [post.descricao],
-      imagem: [post.imagem],
+      imagem: [this.imageUrl],
     })
   }
 
@@ -60,5 +86,4 @@ export class CadastrapostComponent implements OnInit {
     });
     toast.present();
   }
-
 }

@@ -14,16 +14,16 @@ export class PostService {
 
   cadastra(post: Post): Observable<Post>
   {
+
     const params = {
       id_usuario: post.id_usuario,
       descricao: post.descricao,
       imagem: post.imagem,
       status: true,
-      longitude: "11",
-      latitude: "11"
+      longitude: JSON.stringify(localStorage.getItem('longitude')),
+      latitude: JSON.stringify(localStorage.getItem('latitude'))
     }
-
-
+    
     return this.apiService.post(this.endpoint, params);
   }
   

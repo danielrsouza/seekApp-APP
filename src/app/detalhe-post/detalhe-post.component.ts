@@ -19,6 +19,7 @@ export class DetalhePostComponent implements OnInit {
   descricao;
   userComentario;
   comentarios: Comentario;
+  show = true;
 
   constructor(private route: ActivatedRoute, private postService: PostService, private userSerice: UserService, private comentarioService: ComentariosService) { }
 
@@ -30,8 +31,12 @@ export class DetalhePostComponent implements OnInit {
 
 
         this.comentarioService.buscaComent(resp.id).subscribe(comentarios => {
+          if (comentarios.length > 0) {
+            this.show = true;
+          } else {
+            this.show = false;
+          }
           this.comentarios = comentarios;
-          console.log('userComment', this.comentarios);
         })
       })
     });

@@ -4,6 +4,8 @@ import { ToastController } from '@ionic/angular';
 import { PostService } from 'src/app/services/post.service';
 import { UserService } from 'src/app/services/user.service';
 
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -16,9 +18,19 @@ export class HomePage implements OnInit{
 
   constructor(private router: Router, private userService: UserService,
     private postService: PostService,
-    public toastController: ToastController) {}
+    public toastController: ToastController,
+    private geolocation: Geolocation) {}
 
   ngOnInit() {
+
+    this.geolocation.getCurrentPosition().then((resp) => {
+      localStorage.setItem('longitude', JSON.stringify(resp.coords.longitude))
+      localStorage.setItem('latitude', JSON.stringify(resp.coords.latitude))
+     }).catch((error) => {
+       console.log('Error getting location', error);
+     });
+     
+
     this.userService.buscaUserLogado().subscribe(user => {
       this.currentUserId = user.id
       console.log(this.currentUserId)

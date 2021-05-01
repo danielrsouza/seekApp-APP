@@ -17,6 +17,9 @@ import { TokenInterceptor } from './auth/token.interceptor';
 import { CadastrapostComponent } from './cadastrapost/cadastrapost.component';
 import { DetalhePostComponent } from './detalhe-post/detalhe-post.component';
 import { DetalhePostModule } from './detalhe-post/detalhe-post/detalhe-post.module';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { PhotoLibrary } from '@ionic-native/photo-library/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, CadastreseComponent, CadastrapostComponent, DetalhePostComponent],
@@ -26,12 +29,15 @@ import { DetalhePostModule } from './detalhe-post/detalhe-post/detalhe-post.modu
             ReactiveFormsModule, CommonModule, 
             LoginModule, CadastreseModule, 
             FormsModule, DetalhePostModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
+    Geolocation,
+    PhotoLibrary,
+    Camera 
   ],
   bootstrap: [AppComponent],
 })
