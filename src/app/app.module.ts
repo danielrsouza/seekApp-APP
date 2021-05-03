@@ -20,15 +20,17 @@ import { DetalhePostModule } from './detalhe-post/detalhe-post/detalhe-post.modu
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { PhotoLibrary } from '@ionic-native/photo-library/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
+import { PerfilComponent } from './perfil/perfil.component';
+import { PerfilRoutingModule } from './perfil/perfil/perfil.module';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, CadastreseComponent, CadastrapostComponent, DetalhePostComponent],
+  declarations: [AppComponent, LoginComponent, CadastreseComponent, CadastrapostComponent, DetalhePostComponent, PerfilComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), 
             AppRoutingModule, HttpClientModule, 
             ReactiveFormsModule, CommonModule, 
             LoginModule, CadastreseModule, 
-            FormsModule, DetalhePostModule],
+            FormsModule, DetalhePostModule, PerfilRoutingModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
     {
       provide: HTTP_INTERCEPTORS,

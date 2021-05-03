@@ -15,4 +15,10 @@ export class ComentariosService {
   {
     return this.apiService.get(`${this.endpoint}/post/${id}`)
   }
+
+  insereComentario(comentario): Observable<any>
+  {
+    console.log(comentario);
+    return this.apiService.post(`${this.endpoint}`, comentario);
+  }
 }

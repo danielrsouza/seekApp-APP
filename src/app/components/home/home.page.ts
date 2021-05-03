@@ -16,10 +16,13 @@ export class HomePage implements OnInit{
   postComUsuarios: any[];
   currentUserId;
 
-  constructor(private router: Router, private userService: UserService,
+  constructor(
+    private router: Router, 
+    private userService: UserService,
     private postService: PostService,
     public toastController: ToastController,
-    private geolocation: Geolocation) {}
+    private geolocation: Geolocation
+  ) {}
 
   ngOnInit() {
 
@@ -82,5 +85,12 @@ export class HomePage implements OnInit{
       duration: 6000
     });
     toast.present();
+  }
+
+  visualizaPerfil(post)
+  {
+    this.router.navigate(['perfil'], {
+      queryParams: post.user
+    });
   }
 }

@@ -27,6 +27,10 @@ const routes: Routes = [
     loadChildren: () => import('./detalhe-post/detalhe-post-routing.module').then( m => m.DetalhePostRoutingModule)
   },
   {
+    path: 'perfil',
+    loadChildren: () => import('./perfil/perfil/perfil.module').then( m => m.PerfilRoutingModule)
+  },
+  {
     path: '',
     redirectTo: 'inicio',
     pathMatch: 'full'

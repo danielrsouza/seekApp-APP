@@ -6,25 +6,39 @@
     <ion-title>Detalhes do Post</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true">
+<ion-content style="height: 20%;">
   <ion-card>
     <ion-card-header>
-      <ion-img src="https://images.pexels.com/photos/405202/pexels-photo-405202.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" width="100" height="100"></ion-img> 
-      <ion-card-title><strong>Postado por: </strong>{{nome}}</ion-card-title>
+      <img [src]="imgPost">
+      <ion-card-title ><strong>Postado por: </strong><a (click)="visualizaPerfil()">{{nome}}</a></ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <strong>Descrição: </strong>{{descricao}}
     </ion-card-content>
     <ion-card-content>
-      <ion-icon class="chatbox" name="chatbox"></ion-icon>
+      <ion-icon class="chatbox" name="chatbox" (click)="comment()"></ion-icon>
     </ion-card-content>
   </ion-card>
 
-  <ion-content *ngIf="!show">
+  <ion-content *ngIf="inputComment" style="height: 22%;">
+    <form [formGroup]="formComentario" (ngSubmit)="persistComentario()">
+      <ion-item>
+        <ion-input type="text" placeholder="Escreva seu comentário..." formControlName="descricao"></ion-input>
+      </ion-item>
+      <ion-row>
+        <ion-col>
+          <ion-button color="dark" expand="block" type="submit">Cadastrar</ion-button>
+        </ion-col>
+      </ion-row>
+      </form>
+  </ion-content>
+
+  <ion-content *ngIf="!show" style="height: 10%;">
       <ion-card-content>
         <strong>Nenhum comentário nesse post!</strong>
       </ion-card-content>
   </ion-content>
+
 
   <ion-content>
     <ion-card *ngFor="let comentario of comentarios">
@@ -36,6 +50,7 @@
       </ion-card-content>
     </ion-card>
   </ion-content>
+
 </ion-content>
 
 

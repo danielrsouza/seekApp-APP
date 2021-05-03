@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Perfil de {{userPerfil.nome}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content style="height: 20%;">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title><strong>Nome: </strong>{{userPerfil.nome}}</ion-card-title>
+      <ion-card-title><strong>Email: </strong>{{userPerfil.email}}</ion-card-title>
+      <ion-card-title><strong>Telefone: </strong>{{userPerfil.telefone}}</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+</ion-content>
