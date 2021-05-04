@@ -15,6 +15,8 @@ export class HomePage implements OnInit{
 
   postComUsuarios: any[];
   currentUserId;
+  skeleton = false;
+  spinnerLoading = false;
 
   constructor(
     private router: Router, 
@@ -22,10 +24,14 @@ export class HomePage implements OnInit{
     private postService: PostService,
     public toastController: ToastController,
     private geolocation: Geolocation
-  ) {}
+  ) {
+    this.postService.buscaPosts().subscribe(post => {
+      this.postComUsuarios = post;
+      this.skeleton = true;
+    })
+  }
 
   ngOnInit() {
-
     this.geolocation.getCurrentPosition().then((resp) => {
       localStorage.setItem('longitude', JSON.stringify(resp.coords.longitude))
       localStorage.setItem('latitude', JSON.stringify(resp.coords.latitude))
@@ -52,6 +58,7 @@ export class HomePage implements OnInit{
 
   detalhePost(post)
   {
+    this.spinnerLoading = true;
     this.router.navigate(['detalhepost'], {
       queryParams: post
     });
@@ -87,10 +94,28 @@ export class HomePage implements OnInit{
     toast.present();
   }
 
+  async logoutToast() {
+    const toast = await this.toastController.create({
+      message: 'Logout feito com sucesso!',
+      duration: 6000
+    });
+    toast.present();
+  }
+
   visualizaPerfil(post)
   {
     this.router.navigate(['perfil'], {
       queryParams: post.user
     });
+  }
+
+  logout()
+  {
+    localStorage.clear();
+    sessionStorage.clear();
+    this.logoutToast();
+    this.router.navigateByUrl('login');
+
+
   }
 }

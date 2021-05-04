@@ -28,6 +28,7 @@ export class DetalhePostComponent implements OnInit {
   novoComentario: Comentario;
   imgPost;
   userPost: Usuario;
+  skeleton = false;
 
   constructor(
     private route: ActivatedRoute, 
@@ -46,6 +47,7 @@ export class DetalhePostComponent implements OnInit {
         this.nome = resp.user.nome;
         this.descricao = resp.descricao;
         this.userPost = resp.user;
+        this.skeleton = true;
 
         this.comentarioService.buscaComent(resp.id).subscribe(comentarios => {
           if (comentarios.length > 0) {
