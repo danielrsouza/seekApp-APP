@@ -18,7 +18,12 @@
       <ion-input  type="email" formControlName="email" placeholder="Email"></ion-input>
     </ion-row>
     <ion-row>
-      <ion-input  type="password" formControlName="password" placeholder="Senha"></ion-input>
+      <ion-input  [type]="isTextFieldType ? 'text' : 'password'" formControlName="password" placeholder="Senha"></ion-input>
+      <ion-icon [name]="isTextFieldType ? 'eye-off' : 'eye'" (click)="togglePasswordFieldType()"></ion-icon>
+    </ion-row>
+    <ion-row>
+      <ion-input  [type]="isTextFieldTypeConfirm ? 'text' : 'password'" formControlName="passwordConfirm" placeholder="Senha"></ion-input>
+      <ion-icon [name]="isTextFieldTypeConfirm ? 'eye-off' : 'eye'" (click)="togglePasswordFieldTypeConfirm()"></ion-icon>
     </ion-row>
     <ion-row>
       <ion-input  type="text" formControlName="telefone" placeholder="Telefone"></ion-input>

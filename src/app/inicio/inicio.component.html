@@ -1,23 +1,30 @@
     <ion-content class="fundo">
-      <ion-grid class="imagem">
-        <img src="./../../assets/search.png">
+      <ion-grid>
+        <ion-row style="width: 100%;">
+          <ion-card style="width: 100%; text-align:center; margin: 0; padding: 1em; background-color: #8ac4d0;">
+            <ion-card-title style="font-family: 'Bree Serif', serif; font-size: 5em; color: #000000;">SeekApp</ion-card-title>
+          </ion-card>
+        </ion-row>
+        <ion-row class="row-inicio">
+            <ion-slides pager="true" [options]="slideOpts">
+              <ion-slide>
+                <h1>Slide 1</h1>
+              </ion-slide>
+              <ion-slide>
+                <h1>Slide 2</h1>
+              </ion-slide>
+              <ion-slide>
+                <h1>Slide 3</h1>
+              </ion-slide>
+            </ion-slides>
+        </ion-row>
+        <ion-row  class="row-inicio">        
+          <ion-button color="medium" expand="block" (click)="login()">Entrar</ion-button>
+          <ion-button color="medium" expand="block" (click)="cadastrese()">Cadastre-se</ion-button>
+        </ion-row>
       </ion-grid>
       <ion-grid class="slides">
-        <ion-slides>
-          <ion-slide>
-            <h5>Seja bem vindo ao SeekApp</h5>
-          </ion-slide>
-          <ion-slide>
-            <p>O seekApp busca ajudar voce a encontrar alguem perdido!</p>
-          </ion-slide>
-          <ion-slide>
-            <p>Use o seekApp e nao perca quem voce ama!</p>
-          </ion-slide>
-        </ion-slides>
-      </ion-grid>
-      <ion-grid class="buttons">
-        <ion-button color="dark" expand="block" (click)="login()">Entrar</ion-button>
-        <ion-button color="dark" expand="block" (click)="cadastrese()">Cadastre-se</ion-button>
+
       </ion-grid>
     </ion-content>
 

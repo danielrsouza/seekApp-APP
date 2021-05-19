@@ -15,6 +15,8 @@ export class CadastreseComponent implements OnInit   {
   formCadastrese: FormGroup;
   usuario: Usuario
   spinnerLoading = false;
+  isTextFieldType: boolean;
+  isTextFieldTypeConfirm: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -38,12 +40,21 @@ export class CadastreseComponent implements OnInit   {
     })
   }
 
+  togglePasswordFieldType(){
+    this.isTextFieldType = !this.isTextFieldType;
+  }
+
+  togglePasswordFieldTypeConfirm(){
+    this.isTextFieldTypeConfirm = !this.isTextFieldTypeConfirm;
+  }
+
   criaFormulario(usuario: Usuario)
   {
     this.formCadastrese = this.fb.group({
       nome: [usuario.nome],
       email: [usuario.email],
       password: [usuario.password],
+      passwordConfirm: [usuario.password],
       telefone: [usuario.telefone],
       data_nascimento: [usuario.data_nascimento]
     })

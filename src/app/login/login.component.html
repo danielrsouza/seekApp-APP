@@ -24,6 +24,7 @@
       <ion-row class="buttons">
         <ion-col *ngIf="!spinnerLoading">
           <ion-button color="dark" expand="block" type="submit">Entrar</ion-button>
+          <ion-button color="primary" expand="block" (click)="redirectAuthFb()"> Logar com Facebook</ion-button>
         </ion-col>
       </ion-row>
     </form>

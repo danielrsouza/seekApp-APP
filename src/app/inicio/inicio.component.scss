@@ -1,17 +1,26 @@
 ion-button {
-    margin-bottom: 1em;
+    margin-bottom: 0.1em;
     width: 85%;
     margin-left: 7%;
-    --border-radius: 4%;
+    --border-radius: 6%;
 
 }
-
-.buttons {
-    margin-top: 34%;
+ion-button{
+    font-weight: bolder;
 }
+
+ion-slides {
+    height: 100%;
+    margin-top: 3em;
+}
+
+.row-inicio {
+    margin-top: 6em;
+}
+
 
 .fundo {
-    --background: #FFB800;
+    --background: #8ac4d0;
 }
 
 .slides {
@@ -19,9 +28,5 @@ ion-button {
     font-family: Arial, Helvetica, sans-serif ;
 }
 
-.imagem{
-    width: 70%;
-    margin-left: -2em;
-}
 
 

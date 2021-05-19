@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { AuthService } from '../auth/auth.service';
 import { UsuarioLogin } from '../classes/usuarioLogin';
 import { LoginUser } from '../interfaces/login-user';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -16,12 +18,16 @@ export class LoginComponent implements OnInit {
   formLogin: FormGroup;
   user: UsuarioLogin;
   spinnerLoading = false;
+  callback;
 
   constructor( 
     private authService: AuthService, 
     private router: Router,
     private fb: FormBuilder,
-    public toastController: ToastController
+    public toastController: ToastController,
+    private route: ActivatedRoute,
+    private iab: InAppBrowser,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
@@ -51,6 +57,28 @@ export class LoginComponent implements OnInit {
     })
   }
 
+  redirectAuthFb()
+  {
+    const browser = this.iab.create('https://seekappapi.herokuapp.com/facebook')
+    browser.on('loadstart').subscribe(event => {
+      this.callback = event.url.substring(26).replace(/\D/g, "");
+      browser.close()
+      this.userService.buscaUserFacebook(this.callback).subscribe(resp => {
+        console.log('eeee', resp);
+        this.router.navigateByUrl('callback?'+resp.email)
+       // this.router.navigate(['callback?'+resp.email], {
+        //  queryParams: resp
+       // });
+      })
+
+    })
+
+
+
+
+    
+  }
+
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'Login efetuado com sucesso!',
@@ -60,3 +88,5 @@ export class LoginComponent implements OnInit {
   }
 
 }
+
+//Fórmula de Haversine aplicada em PHP

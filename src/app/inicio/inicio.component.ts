@@ -9,7 +9,14 @@ import { Router } from '@angular/router';
 })
 export class InicioComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  slideOpts = {
+    initialSlide: 1,
+    speed: 10
+  };
+
+  constructor(
+    private router: Router
+  ) {}
 
   ngOnInit() {}
 

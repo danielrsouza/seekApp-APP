@@ -21,4 +21,11 @@ export class UserService {
     const endpoint = "/api/users";
     return this.apiService.get(`${endpoint}/${id}`)
   }
+
+  buscaUserFacebook(idfb): Observable<Usuario>
+  {
+    const endpoint = "/api/users";
+    return this.apiService.get(`${endpoint}/facebook/${idfb}`)
+  }
+
 }
