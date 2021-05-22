@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Usuario } from '../classes/usuario';
+import { UsuarioFacebook } from '../classes/usuarioFacebook';
 import { ApiService } from './api.service';
 
 @Injectable({
@@ -12,5 +13,9 @@ export class CadastreseService {
 
   cadastra(usuario: Usuario): Observable<Usuario> {
     return this.apiService.post('/api/users', usuario);
+  }
+
+  cadastraFb(usuario: UsuarioFacebook): Observable<UsuarioFacebook> {
+    return this.apiService.post('/api/usersFb', usuario);
   }
 }

@@ -33,7 +33,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
             AppRoutingModule, HttpClientModule, 
             ReactiveFormsModule, CommonModule, 
             LoginModule, CadastreseModule, 
-            FormsModule, DetalhePostModule, PerfilRoutingModule, CallbackModule],
+            FormsModule, DetalhePostModule, PerfilRoutingModule, CallbackModule, HttpClientModule ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
     {
       provide: HTTP_INTERCEPTORS,
@@ -43,7 +43,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
     InAppBrowser,
     Geolocation,
     PhotoLibrary,
-    Camera 
+    Camera,
   ],
   bootstrap: [AppComponent],
 })
