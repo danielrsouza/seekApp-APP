@@ -41,27 +41,6 @@ export class LoginComponent implements OnInit {
     private userService: UserService
   ) {}
 
-
-  // async getCurrentState() {
-  //   const result = await Plugins.FacebookLogin.getCurrentAccessToken();
-  //   try {
-  //     console.log(result);
-  //     if (result && result.accessToken) {
-  //       let user = { token: result.accessToken.token, userId: result.accessToken.userId }
-  //       let navigationExtras: NavigationExtras = {
-  //         queryParams: {
-  //           userinfo: JSON.stringify(user)
-  //         }
-  //       };
-  //       this.router.navigate(["/home"], navigationExtras);
-  //     }
-  //   } catch (e) {
-  //     console.log(e)
-  //   }
-  // }
-
-
-
   ngOnInit() {
     this.criaFormulario(new UsuarioLogin())
   }
@@ -137,6 +116,11 @@ export class LoginComponent implements OnInit {
       duration: 4000
     });
     toast.present();
+  }
+
+  resetPassword()
+  {
+    this.router.navigateByUrl('reset-password')
   }
 
 }

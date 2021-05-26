@@ -23,7 +23,9 @@ export class CadastreseComponent implements OnInit   {
     private cadastreseService: CadastreseService,
     public toastController: ToastController,
     private router: Router
-    ) { }
+    ) {
+      localStorage.clear();
+    }
 
   ngOnInit() {
     this.criaFormulario(new Usuario())
@@ -34,9 +36,10 @@ export class CadastreseComponent implements OnInit   {
     this.usuario = this.formCadastrese.value
 
     this.cadastreseService.cadastra(this.usuario).subscribe(resp => {
+      localStorage.setItem('CurrentUser', JSON.stringify(this.usuario));
       this.spinnerLoading = false;
       this.presentToast();
-      this.router.navigateByUrl('login')
+      this.router.navigateByUrl('email-confirmation')
     })
   }
 
@@ -62,7 +65,7 @@ export class CadastreseComponent implements OnInit   {
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'Usu·rio cadastrado com sucesso!',
+      message: 'Usu√°rio cadastrado com sucesso!',
       duration: 6000
     });
     toast.present();

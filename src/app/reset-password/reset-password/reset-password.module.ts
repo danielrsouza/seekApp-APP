@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
+
 @NgModule({
   declarations: [],
   imports: []
 })
-export class LoginModule { }
+export class ResetPasswordModule { }

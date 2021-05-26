@@ -40,4 +40,19 @@ export class AuthService {
       return false;
     }
   }
+
+  reenviarEmail(email): Observable<any>
+  {
+    return this.http.get<any>(`${environment.api_url}/api/resend/email/${email}`);
+  }
+
+  resetPassword(email): Observable<any>
+  {
+
+    const params = {
+      email: email,
+    }
+    
+    return this.http.post<any>(`${environment.api_url}/password/email`, {...params});
+  }
 }

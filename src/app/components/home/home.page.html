@@ -100,6 +100,16 @@
       <ion-card-subtitle>
         <ion-icon class="eye" name="eye" (click)="detalhePost(post)"></ion-icon>
       </ion-card-subtitle>
+      <div *ngIf="post.user.id == currentUserId">
+        <div *ngIf="post.status == true; else statusfalse">
+          <strong>Status: </strong><ion-icon (click)="mudaStatus(true, post.id)" name="lock-open-outline"></ion-icon>
+        </div>
+        <ng-template #statusfalse><strong>Status: </strong><ion-icon (click)="mudaStatus(false, post.id)" name="lock-closed-outline"></ion-icon></ng-template>
+
+      </div>
+
+
+
     </ion-card-header>
     <ion-card-content>
       <strong>Descrição: </strong>{{post.descricao}}
@@ -107,6 +117,7 @@
     <ion-card-content *ngIf="post.user.id == currentUserId">
       <ion-icon name="pencil"></ion-icon>
       <ion-icon name="trash" (click)="deletePost(post)"></ion-icon>
+      
     </ion-card-content>
   </ion-card>
 

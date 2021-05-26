@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -10,7 +11,7 @@ import { ApiService } from './api.service';
 export class PostService {
   endpoint = "/api/posts";
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private http: HttpClient) { }
 
   cadastra(post: Post): Observable<Post>
   {
@@ -41,5 +42,10 @@ export class PostService {
   {
     console.log('aqui', `${this.endpoint}/${id}`)
     return this.apiService.get(`${this.endpoint}/${id}`)
+  }
+
+  mudaStatusPost(status, id) 
+  {
+    return this.http.get(`${environment.api_url}/api/status?id=${id}&status=${status}`);   
   }
 }

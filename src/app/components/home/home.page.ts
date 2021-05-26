@@ -67,11 +67,13 @@ export class HomePage implements OnInit{
   deletePost(post)
   {
     this.postService.deletaPost(post.id).subscribe(resp => {
-      this.presentToast();
-      this.postService.buscaPosts().subscribe(posts => {
-        this.postComUsuarios = posts;
-        console.log(posts)
-      })
+      this.presentToast(resp.message);
+      if (resp.success) {
+        this.postService.buscaPosts().subscribe(posts => {
+          this.postComUsuarios = posts;
+          console.log(posts)
+        })
+      }
     })
   }
 
@@ -86,9 +88,9 @@ export class HomePage implements OnInit{
     }, 2000);
   }
 
-  async presentToast() {
+  async presentToast(resp) {
     const toast = await this.toastController.create({
-      message: 'Post deletado com sucesso!',
+      message: resp,
       duration: 6000
     });
     toast.present();
@@ -115,7 +117,15 @@ export class HomePage implements OnInit{
     sessionStorage.clear();
     this.logoutToast();
     this.router.navigateByUrl('login');
+  }
 
-
+  mudaStatus(status, id)
+  {
+    this.postService.mudaStatusPost(status, id).subscribe(resp => {
+      this.postService.buscaPosts().subscribe(posts => {
+        this.postComUsuarios = posts;
+        console.log(posts)
+      })
+    })
   }
 }

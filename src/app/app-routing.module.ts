@@ -35,6 +35,14 @@ const routes: Routes = [
     loadChildren: () => import('./callback/callback/callback.module').then( m => m.CallbackModule)
   },
   {
+    path: 'email-confirmation',
+    loadChildren: () => import('./email-confirmation/email-confirmation-routing.module').then( m => m.EmailConfirmationRoutingModule)
+  },
+  {
+    path: 'reset-password',
+    loadChildren: () => import('./reset-password/reset-password-routing.module').then( m => m.ResetPasswordRoutingModule)
+  },
+  {
     path: '',
     redirectTo: 'inicio',
     pathMatch: 'full'
