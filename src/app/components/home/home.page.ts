@@ -17,6 +17,8 @@ export class HomePage implements OnInit{
   currentUserId;
   skeleton = false;
   spinnerLoading = false;
+  longitude;
+  latitude;
 
   constructor(
     private router: Router, 
@@ -25,16 +27,15 @@ export class HomePage implements OnInit{
     public toastController: ToastController,
     private geolocation: Geolocation
   ) {
-    this.postService.buscaPosts().subscribe(post => {
-      this.postComUsuarios = post;
       this.skeleton = true;
-    })
   }
 
   ngOnInit() {
     this.geolocation.getCurrentPosition().then((resp) => {
       localStorage.setItem('longitude', JSON.stringify(resp.coords.longitude))
       localStorage.setItem('latitude', JSON.stringify(resp.coords.latitude))
+      this.longitude = localStorage.getItem('longitude')
+      this.latitude = localStorage.getItem('latitude')
      }).catch((error) => {
        console.log('Error getting location', error);
      });
@@ -44,7 +45,7 @@ export class HomePage implements OnInit{
       this.currentUserId = user.id
       console.log(this.currentUserId)
       localStorage.setItem('currentUser', JSON.stringify(user))
-      this.postService.buscaPosts().subscribe(post => {
+      this.postService.buscaPosts(this.longitude, this.latitude).subscribe(post => {
         this.postComUsuarios = post;
         console.log(post)
       })
@@ -69,7 +70,7 @@ export class HomePage implements OnInit{
     this.postService.deletaPost(post.id).subscribe(resp => {
       this.presentToast(resp.message);
       if (resp.success) {
-        this.postService.buscaPosts().subscribe(posts => {
+        this.postService.buscaPosts(this.longitude, this.latitude).subscribe(posts => {
           this.postComUsuarios = posts;
           console.log(posts)
         })
@@ -81,7 +82,7 @@ export class HomePage implements OnInit{
     console.log('buscando posts');
 
     setTimeout(() => {
-      this.postService.buscaPosts().subscribe(post => {
+      this.postService.buscaPosts(this.longitude, this.latitude).subscribe(post => {
         this.postComUsuarios = post;
       })
       event.target.complete();
@@ -122,7 +123,7 @@ export class HomePage implements OnInit{
   mudaStatus(status, id)
   {
     this.postService.mudaStatusPost(status, id).subscribe(resp => {
-      this.postService.buscaPosts().subscribe(posts => {
+      this.postService.buscaPosts(this.longitude, this.latitude).subscribe(posts => {
         this.postComUsuarios = posts;
         console.log(posts)
       })

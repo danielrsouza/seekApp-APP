@@ -28,9 +28,9 @@ export class PostService {
     return this.apiService.post(this.endpoint, params);
   }
   
-  buscaPosts()
+  buscaPosts(longitude, latitude)
   {
-    return this.apiService.get(this.endpoint);
+    return this.apiService.get(`${this.endpoint}?latitude=${longitude}?longitude=${latitude}`);
   }
 
   deletaPost(id)
@@ -40,7 +40,6 @@ export class PostService {
 
   buscaPostPorId(id)
   {
-    console.log('aqui', `${this.endpoint}/${id}`)
     return this.apiService.get(`${this.endpoint}/${id}`)
   }
 
