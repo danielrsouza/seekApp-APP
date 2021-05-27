@@ -29,6 +29,12 @@ export class UserService {
     return this.apiService.get(`${endpoint}/${id}`)
   }
 
+  verificado(email)
+  {
+    const endpoint = "/api/email/verificado";
+    return this.apiService.get(`${endpoint}?email=${email}`)
+  }
+
 
 
 }

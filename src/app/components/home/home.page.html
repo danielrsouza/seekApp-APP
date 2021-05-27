@@ -102,9 +102,9 @@
       </ion-card-subtitle>
       <div *ngIf="post.user.id == currentUserId">
         <div *ngIf="post.status == true; else statusfalse">
-          <strong>Status: </strong><ion-icon (click)="mudaStatus(true, post.id)" name="lock-open-outline"></ion-icon>
+          <strong>Status: </strong><ion-icon (click)="mudaStatus(false, post.id)" name="lock-open-outline"></ion-icon>
         </div>
-        <ng-template #statusfalse><strong>Status: </strong><ion-icon (click)="mudaStatus(false, post.id)" name="lock-closed-outline"></ion-icon></ng-template>
+        <ng-template #statusfalse><strong>Status: </strong><ion-icon (click)="mudaStatus(true, post.id)" name="lock-closed-outline"></ion-icon></ng-template>
 
       </div>
 

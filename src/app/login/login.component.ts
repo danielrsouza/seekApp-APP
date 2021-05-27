@@ -93,12 +93,19 @@ export class LoginComponent implements OnInit {
     this.user = this.formLogin.value;
 
     this.authService.login(this.user).subscribe((response) => {
-      if (response.access_token) {
-        this.spinnerLoading = false
-        localStorage.setItem('token', response.access_token);
-        this.presentToast();
-        this.router.navigateByUrl('home')
-      }
+      this.userService.verificado(this.user.email).subscribe(verificado => {
+        if (verificado.email_verified_at) {
+          if (response.access_token) {
+            this.spinnerLoading = false
+            localStorage.setItem('token', response.access_token);
+            this.presentToast();
+            this.router.navigateByUrl('home')
+          }
+        } else {
+          this.spinnerLoading = false
+          this.emailVerificadoToast();
+        }
+      })
     })
   }
 
@@ -118,6 +125,14 @@ export class LoginComponent implements OnInit {
     toast.present();
   }
 
+  async emailVerificadoToast() {
+    const toast = await this.toastController.create({
+      message: 'Email nÃ£o verificado, verifique seus e-mails!',
+      duration: 7000
+    });
+    toast.present();
+  }
+
   resetPassword()
   {
     this.router.navigateByUrl('reset-password')
@@ -125,4 +140,4 @@ export class LoginComponent implements OnInit {
 
 }
 
-//Fórmula de Haversine aplicada em PHP
+//Fï¿½rmula de Haversine aplicada em PHP
