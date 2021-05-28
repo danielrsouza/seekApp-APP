@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { ToastController } from '@ionic/angular';
@@ -35,8 +35,15 @@ export class CadastrapostComponent implements OnInit {
 
   persistPost()
   {
+    this.criaValidators();
     this.spinnerLoading = true
     this.post = this.formPost.value
+
+    if (this.formPost.invalid) {
+      this.spinnerLoading = false;
+      return;
+    }
+
     this.post.id_usuario = this.currentUser.id;
     this.post.imagem = this.imageUrl;
     
@@ -77,6 +84,29 @@ export class CadastrapostComponent implements OnInit {
       descricao: [post.descricao],
       imagem: [this.imageUrl],
     })
+  }
+
+  criaValidators()
+  {
+    this.formPost = this.fb.group({
+      descricao: [this.descricao, Validators.required],
+      imagem: [this.imagem, Validators.required],
+    })
+  }
+
+  get registerFormControl() {
+    return this.formPost.controls;
+  }
+
+  
+  get descricao()
+  {
+    return this.formPost.get('descricao').value
+  }
+
+  get imagem()
+  {
+    return this.formPost.get('imagem').value
   }
 
   async presentToast() {

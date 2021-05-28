@@ -18,38 +18,55 @@ export class CadastreseComponent implements OnInit   {
   isTextFieldType: boolean;
   isTextFieldTypeConfirm: boolean;
 
-  constructor(
+  constructor
+  (
     private fb: FormBuilder,
     private cadastreseService: CadastreseService,
     public toastController: ToastController,
     private router: Router
-    ) {
-      localStorage.clear();
-    }
+  )
+  {
+    localStorage.clear();
+  }
 
   ngOnInit() {
     this.criaFormulario(new Usuario())
   }
 
   cadastrese() {
+    // Monta as validações que serão testadas ao enviar.
+    this.criaValidators();
+
     this.spinnerLoading = true
     this.usuario = this.formCadastrese.value
 
-    this.cadastreseService.cadastra(this.usuario).subscribe(resp => {
-      localStorage.setItem('CurrentUser', JSON.stringify(this.usuario));
-      this.spinnerLoading = false;
-      this.presentToast();
-      this.router.navigateByUrl('email-confirmation')
-    })
+    if (this.formCadastrese.invalid) {
+      this.spinnerLoading = false
+      return;
+    }
+
+    if (this.formCadastrese.valid) {
+      this.cadastreseService.cadastra(this.usuario).subscribe(resp => {
+        localStorage.setItem('CurrentUser', JSON.stringify(this.usuario));
+        this.spinnerLoading = false;
+        this.presentToast();
+        this.router.navigateByUrl('email-confirmation')
+      })
+    }
+
   }
 
-  togglePasswordFieldType(){
-    this.isTextFieldType = !this.isTextFieldType;
+
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Usuário cadastrado com sucesso!',
+      duration: 6000
+    });
+    toast.present();
   }
 
-  togglePasswordFieldTypeConfirm(){
-    this.isTextFieldTypeConfirm = !this.isTextFieldTypeConfirm;
-  }
+  // Validações
 
   criaFormulario(usuario: Usuario)
   {
@@ -63,12 +80,61 @@ export class CadastreseComponent implements OnInit   {
     })
   }
 
-  async presentToast() {
-    const toast = await this.toastController.create({
-      message: 'Usuário cadastrado com sucesso!',
-      duration: 6000
-    });
-    toast.present();
+  togglePasswordFieldType(){
+    this.isTextFieldType = !this.isTextFieldType;
   }
+
+  togglePasswordFieldTypeConfirm(){
+    this.isTextFieldTypeConfirm = !this.isTextFieldTypeConfirm;
+  }
+
+  criaValidators()
+  {
+    this.formCadastrese = this.fb.group({
+      nome: [this.nome, [Validators.required, Validators.minLength(4)]],
+      email: [this.email, [Validators.required, Validators.email]],
+      password: [this.password, [Validators.required, Validators.minLength(8)]],
+      passwordConfirm: [this.passwordConfirm, [Validators.required, Validators.minLength(8), Validators.maxLength(11)]],
+      telefone: [this.telefone,[Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
+      data_nascimento: [this.data_nascimento, [Validators.required]]
+    })
+  }
+
+  get registerFormControl() {
+    return this.formCadastrese.controls;
+  }
+
+  get nome()
+  {
+    return this.formCadastrese.get('nome').value
+  }
+
+  get email()
+  {
+    return this.formCadastrese.get('email').value
+  }
+
+  get password()
+  {
+    return this.formCadastrese.get('password').value
+  }
+
+  get passwordConfirm()
+  {
+    return this.formCadastrese.get('passwordConfirm').value
+  }
+
+  get telefone()
+  {
+    return this.formCadastrese.get('telefone').value
+  }
+
+  get data_nascimento()
+  {
+    return this.formCadastrese.get('data_nascimento').value
+  }
+
+
+
 
 }

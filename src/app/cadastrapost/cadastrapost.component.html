@@ -11,9 +11,15 @@
       <ion-item>
         <ion-input type="text" placeholder="Descricao" formControlName="descricao"></ion-input>
       </ion-item>
+      <div *ngIf="registerFormControl.descricao.errors" class="invalid-feedback">
+        <div *ngIf="registerFormControl.descricao.errors.required">Preencha a descrição</div>
+    </div>
       <ion-item>
         <ion-button (click)="abriGaleria()">Camera</ion-button>
       </ion-item>
+      <div *ngIf="registerFormControl.imagem.errors" class="invalid-feedback">
+        <div *ngIf="registerFormControl.imagem.errors.required">Insira uma imagem</div>
+    </div>
 
       <ion-row>
         <ion-col *ngIf="!spinnerLoading">

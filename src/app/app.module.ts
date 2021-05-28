@@ -37,7 +37,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
             AppRoutingModule, HttpClientModule, 
             ReactiveFormsModule, CommonModule, 
             LoginModule, CadastreseModule, 
-            FormsModule, DetalhePostModule, PerfilRoutingModule, CallbackModule, HttpClientModule, EmailConfirmationModule, ResetPasswordModule ],
+            FormsModule, DetalhePostModule, PerfilRoutingModule, CallbackModule, HttpClientModule, EmailConfirmationModule, ResetPasswordModule, FormsModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
     {
       provide: HTTP_INTERCEPTORS,

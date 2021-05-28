@@ -17,9 +17,18 @@
         <ion-row>
           <ion-input formControlName="email" type="text" value="" placeholder="Email"></ion-input>
         </ion-row>
+        <div *ngIf="registerFormControl.email.errors" class="invalid-feedback">
+          <div *ngIf="registerFormControl.email.errors.required">Preencha o email</div>
+          <div *ngIf="registerFormControl.email.errors.email">Preencha com email valido</div>
+      </div>
+    
         <ion-row>
           <ion-input formControlName="password" type="password" value="" placeholder="Senha"></ion-input>
         </ion-row>
+        <div *ngIf="registerFormControl.password.errors" class="invalid-feedback">
+          <div *ngIf="registerFormControl.password.errors.required">Preencha a senha</div>
+          <div *ngIf="registerFormControl.password.errors.minlength">A senha deve conter pelo menos 8 caracteres</div>
+      </div>
 
       <ion-row class="buttons">
         <ion-col *ngIf="!spinnerLoading">

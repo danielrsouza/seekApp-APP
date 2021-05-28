@@ -12,29 +12,57 @@
 
   <form [formGroup]="formCadastrese" (ngSubmit)="cadastrese()">
     <ion-row>
-      <ion-input  type="text" formControlName="nome" placeholder="Nome"></ion-input>
+      <ion-input  type="text" class="form-control" formControlName="nome" placeholder="Nome" ></ion-input>
     </ion-row>
+    <div *ngIf="registerFormControl.nome.errors" class="invalid-feedback">
+      <div *ngIf="registerFormControl.nome.errors.required">Preencha o nome</div>
+      <div *ngIf="registerFormControl.nome.errors.minlength">Preencha com pelo menos 4 letras</div>
+  </div>
+
     <ion-row>
       <ion-input  type="email" formControlName="email" placeholder="Email"></ion-input>
     </ion-row>
+    <div *ngIf="registerFormControl.email.errors" class="invalid-feedback">
+      <div *ngIf="registerFormControl.email.errors.required">Preencha o email</div>
+      <div *ngIf="registerFormControl.email.errors.email">Preencha com email valido</div>
+  </div>
+
     <ion-row>
       <ion-input  [type]="isTextFieldType ? 'text' : 'password'" formControlName="password" placeholder="Senha"></ion-input>
       <ion-icon [name]="isTextFieldType ? 'eye-off' : 'eye'" (click)="togglePasswordFieldType()"></ion-icon>
     </ion-row>
+    <div *ngIf="registerFormControl.password.errors" class="invalid-feedback">
+      <div *ngIf="registerFormControl.password.errors.required">Preencha a senha</div>
+      <div *ngIf="registerFormControl.password.errors.minlength">A senha deve conter pelo menos 8 caracteres</div>
+  </div>
+
     <ion-row>
-      <ion-input  [type]="isTextFieldTypeConfirm ? 'text' : 'password'" formControlName="passwordConfirm" placeholder="Senha"></ion-input>
+      <ion-input  [type]="isTextFieldTypeConfirm ? 'text' : 'password'" formControlName="passwordConfirm" placeholder="Confirmação de senha"></ion-input>
       <ion-icon [name]="isTextFieldTypeConfirm ? 'eye-off' : 'eye'" (click)="togglePasswordFieldTypeConfirm()"></ion-icon>
     </ion-row>
+    <div *ngIf="registerFormControl.passwordConfirm.errors" class="invalid-feedback">
+      <div *ngIf="registerFormControl.passwordConfirm.errors.required">Preencha a confirmação de senha</div>
+  </div>
+
     <ion-row>
       <ion-input  type="text" formControlName="telefone" placeholder="Telefone"></ion-input>
     </ion-row>
+    <div *ngIf="registerFormControl.telefone.errors" class="invalid-feedback">
+      <div *ngIf="registerFormControl.telefone.errors.required">Preencha o telefone</div>
+      <div *ngIf="registerFormControl.telefone.errors.minlength">Preencha o telefone com o código de area</div>
+
+  </div>
+
     <ion-row>
       <ion-input  type="date" formControlName="data_nascimento" placeholder="Data de Nascimento"></ion-input>
     </ion-row>
+    <div *ngIf="registerFormControl.data_nascimento.errors" class="invalid-feedback">
+      <div *ngIf="registerFormControl.data_nascimento.errors.required">Preencha a data de nascimento</div>
+  </div>
 
   <ion-row>
     <ion-col *ngIf="!spinnerLoading">
-      <ion-button color="dark" expand="block" type="submit">Cadastrar</ion-button>
+      <ion-button  color="dark" expand="block" type="submit">Cadastrar</ion-button>
     </ion-col>
   </ion-row>
 </form>

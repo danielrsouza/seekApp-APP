@@ -89,8 +89,14 @@ export class LoginComponent implements OnInit {
   }
   
   login() {
+    this.criaValidators();
     this.spinnerLoading = true
     this.user = this.formLogin.value;
+
+    if (this.formLogin.invalid) {
+      this.spinnerLoading = false
+      return;
+    }
 
     this.authService.login(this.user).subscribe((response) => {
       this.userService.verificado(this.user.email).subscribe(verificado => {
@@ -117,6 +123,18 @@ export class LoginComponent implements OnInit {
     })
   }
 
+  criaValidators()
+  {
+    this.formLogin = this.fb.group({
+      email: [this.email, [Validators.required, Validators.email]],
+      password: [this.password, [Validators.required, Validators.minLength(8)]],
+    })
+  }
+
+  get registerFormControl() {
+    return this.formLogin.controls;
+  }
+
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'Login efetuado com sucesso!',
@@ -136,6 +154,16 @@ export class LoginComponent implements OnInit {
   resetPassword()
   {
     this.router.navigateByUrl('reset-password')
+  }
+
+  get email()
+  {
+    return this.formLogin.get('email').value
+  }
+
+  get password()
+  {
+    return this.formLogin.get('password').value
   }
 
 }
