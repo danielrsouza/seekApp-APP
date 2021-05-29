@@ -96,9 +96,17 @@
   <div  *ngFor="let post of postComUsuarios">
     <div class="container">
       <ion-item>
-        <ion-avatar slot="start">
-          <img src="../../../assets/avatar.png">
-        </ion-avatar>
+        <div *ngIf="post.user.avatar; else semAvatar">
+          <ion-avatar slot="start">
+            <img [src]="post.user.avatar">
+          </ion-avatar>
+        </div>
+
+        <ng-template #semAvatar>
+          <ion-avatar slot="start">
+            <img src="../../../assets/avatar.png">
+          </ion-avatar>  
+        </ng-template>
 
         <ion-label>
           <a (click)="visualizaPerfil(post)">{{post.user.nome}}</a>

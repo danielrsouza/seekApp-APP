@@ -90,7 +90,7 @@ export class CadastrapostComponent implements OnInit {
   {
     this.formPost = this.fb.group({
       descricao: [this.descricao, Validators.required],
-      imagem: [this.imagem, Validators.required],
+      imagem: [this.imageUrl, Validators.required],
     })
   }
 

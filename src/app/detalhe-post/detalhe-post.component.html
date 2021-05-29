@@ -94,9 +94,17 @@
 
   <div *ngIf="skeleton" class="container">
     <ion-item>
-      <ion-avatar slot="start">
-        <img src="../../../assets/avatar.png">
-      </ion-avatar>
+      <div *ngIf="avatar; else semAvatar">
+        <ion-avatar slot="start">
+          <img [src]="avatar">
+        </ion-avatar>
+      </div>
+
+      <ng-template #semAvatar>
+        <ion-avatar slot="start">
+          <img src="../../../assets/avatar.png">
+        </ion-avatar>  
+      </ng-template>
 
       <ion-label>
         <a (click)="visualizaPerfil(post)">{{nome}}</a>
@@ -134,9 +142,17 @@
   <div *ngFor="let comentario of comentarios">
     <div>
       <ion-item>
-        <ion-avatar slot="start">
-          <img src="../../../assets/avatar.png">
-        </ion-avatar>
+        <div *ngIf="comentario.users.avatar; else semAvatar">
+          <ion-avatar slot="start">
+            <img [src]="comentario.users.avatar">
+          </ion-avatar>
+        </div>
+
+        <ng-template #semAvatar>
+          <ion-avatar slot="start">
+            <img src="../../../assets/avatar.png">
+          </ion-avatar>  
+        </ng-template>
         <ion-label>
           <a (click)="visualizaPerfilComentario(comentario.users)">{{comentario.users.nome}}</a>
           <p>{{comentario.updated_at}}</p>

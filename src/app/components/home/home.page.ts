@@ -42,6 +42,7 @@ export class HomePage implements OnInit{
      
 
     this.userService.buscaUserLogado().subscribe(user => {
+      console.log('oeeee',user );
       this.currentUserId = user.id
       console.log(this.currentUserId)
       localStorage.setItem('currentUser', JSON.stringify(user))

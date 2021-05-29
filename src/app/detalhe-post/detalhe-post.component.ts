@@ -28,6 +28,7 @@ export class DetalhePostComponent implements OnInit {
   imgPost;
   userPost: Usuario;
   skeleton = false;
+  avatar;
 
   constructor(
     private route: ActivatedRoute, 
@@ -46,9 +47,11 @@ export class DetalhePostComponent implements OnInit {
         this.nome = post.user.nome;
         this.descricao = post.descricao;
         this.userPost = post.user;
+        this.avatar = post.user.avatar
         this.skeleton = true;
 
           this.comentarioService.buscaComent(post.id).subscribe(comentarios => {
+            console.log('comentario', comentarios[0].users.avatar)
             if (comentarios.length > 0) {
               this.show = true;
             } else {
@@ -90,6 +93,7 @@ export class DetalhePostComponent implements OnInit {
       console.log('retorno', resp);
       this.inputComment = false;
       this.comentarioService.buscaComent(this.postId).subscribe(comentarios => {
+        console.log('ue', comentarios);
         if (comentarios.length > 0) {
           this.show = true;
         } else {
