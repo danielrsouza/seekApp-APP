@@ -5,4 +5,5 @@ export class Usuario {
     password: string = '';
     telefone: string = '';
     data_nascimento: Date;
+    avatar: string;
 }

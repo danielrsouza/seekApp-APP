@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
   user: UsuarioLogin;
   spinnerLoading = false;
   callback;
+  optionsSlides: any = {slidesPerView: 2, freeMode: false};
 
   constructor( 
     private authService: AuthService, 

@@ -1,48 +1,60 @@
 <ion-header>
-  <ion-toolbar color="dark">
+  <ion-toolbar color="tertiary">
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Login</ion-title>
+    <ion-title class="ion-text-center">Login</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="fundo">
-  <ion-grid class="imagem">
-    <img src="./../../assets/search.png">
-  </ion-grid>
-  
-  <ion-grid>
-    <form [formGroup]="formLogin" (ngSubmit)="login()" class="fundo">
-        <ion-row>
-          <ion-input formControlName="email" type="text" value="" placeholder="Email"></ion-input>
-        </ion-row>
+<ion-content color="tertiary">
+  <img src="../../assets/search.png" alt="logo de busca"/>
+
+
+    <form [formGroup]="formLogin" (ngSubmit)="login()">
+      <ion-item color="light">
+        <ion-input formControlName="email" class="form-control" type="text" value="" placeholder="Email"></ion-input>
         <div *ngIf="registerFormControl.email.errors" class="invalid-feedback">
           <div *ngIf="registerFormControl.email.errors.required">Preencha o email</div>
           <div *ngIf="registerFormControl.email.errors.email">Preencha com email valido</div>
-      </div>
+        </div>
+      </ion-item>
     
-        <ion-row>
-          <ion-input formControlName="password" type="password" value="" placeholder="Senha"></ion-input>
-        </ion-row>
+      <ion-item color="light">
+        <ion-input formControlName="password" class="form-control" type="password" value="" placeholder="Senha"></ion-input>
         <div *ngIf="registerFormControl.password.errors" class="invalid-feedback">
           <div *ngIf="registerFormControl.password.errors.required">Preencha a senha</div>
           <div *ngIf="registerFormControl.password.errors.minlength">A senha deve conter pelo menos 8 caracteres</div>
-      </div>
+        </div>
+      </ion-item>
 
-      <ion-row class="buttons">
-        <ion-col *ngIf="!spinnerLoading">
-          <ion-button color="dark" expand="block" type="submit">Entrar</ion-button>
-          <ion-button color="primary" expand="block" (click)="loginFb()"> Logar com Facebook</ion-button>
-          <ion-button color="dark" expand="block" (click)="resetPassword()">Esqueci a senha</ion-button>
-        </ion-col>
-      </ion-row>
+        <div *ngIf="!spinnerLoading">
+          <ion-button color="light" expend="block" fill="outline" shape="round" type="submit">Entrar</ion-button>
+        </div>
     </form>
 
-  </ion-grid>
 
-  <ion-content *ngIf="spinnerLoading"  class="spinnerCenter"  class="fundo">
+  <div *ngIf="spinnerLoading"  class="spinnerCenter">
     <ion-spinner name="crescent"></ion-spinner>
-  </ion-content>
+  </div>
 
 </ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar color="tertiary">
+    <ion-slides [options]="optionsSlides">
+      <ion-slide>
+        <div class="container" (click)="resetPassword()">
+          <ion-icon name="construct"></ion-icon>
+          <span>Esqueci minha senha</span>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div class="container" (click)="loginFb()">
+          <ion-icon name="logo-facebook" ></ion-icon>
+          <span>Fazer login com o facebook</span>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </ion-toolbar>
+</ion-footer>

@@ -1,10 +1,21 @@
 <ion-header>
-    <ion-toolbar  color="dark">
-      <ion-buttons slot="start">
-        <ion-back-button></ion-back-button>
-      </ion-buttons>
-      <ion-title>Cadastre-se</ion-title>
-    </ion-toolbar>
-  </ion-header>
-<ion-button (click)="reenviaEmail()">Reenviar e-mail</ion-button>
-<ion-button (click)="telaLogin()">Ir para o Login</ion-button>
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">E-mail de Verificação</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="tertiary">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Cadastro efetuado com sucesso...</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      Confirme seu cadastro, caso não tenha recebido o email de confirmação, <a (click)="reenviaEmail()">Reenviar Email</a>
+      ou vá direto para o login, <a (click)="telaLogin()">Fazer Login</a>.
+    </ion-card-content>
+  </ion-card>
+</ion-content>

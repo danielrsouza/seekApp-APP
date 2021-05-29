@@ -91,20 +91,28 @@
       </ion-item>
     </ion-list>
   </div>
-  <ion-card *ngIf="skeleton">
-    <ion-card-header>
-      <img [src]="imgPost">
-      <ion-card-title ><strong>Postado por: </strong><a (click)="visualizaPerfil()">{{nome}}</a></ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <strong>Descrição: </strong>{{descricao}}
-    </ion-card-content>
-    <ion-card-content>
-      <ion-icon class="chatbox" name="chatbox" (click)="comment()"></ion-icon>
-    </ion-card-content>
-  </ion-card>
 
-  <ion-content *ngIf="inputComment" style="height: 22%;">
+  <div *ngIf="skeleton" class="container">
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="../../../assets/avatar.png">
+      </ion-avatar>
+
+      <ion-label>
+        <a (click)="visualizaPerfil(post)">{{nome}}</a>
+
+        <h4>{{descricao}}</h4>
+      </ion-label>
+    </ion-item>
+    <img [src]="imgPost" style="width: 100%; height: 350px!important;"> 
+    <ion-item-divider>
+      <ion-label>
+        <ion-icon class="chatbox" name="chatbox" (click)="comment()"></ion-icon>
+      </ion-label>
+    </ion-item-divider>
+  </div>
+
+  <div *ngIf="inputComment" style="height: 22%;">
     <form [formGroup]="formComentario" (ngSubmit)="persistComentario()">
       <ion-item>
         <ion-input type="text" placeholder="Escreva seu comentário..." formControlName="descricao"></ion-input>
@@ -115,23 +123,32 @@
         </ion-col>
       </ion-row>
       </form>
-  </ion-content>
+  </div>
 
-  <ion-content *ngIf="!show" style="height: 10%;">
+  <div *ngIf="!show" style="height: 10%;">
       <ion-card-content>
         <strong>Nenhum comentário nesse post!</strong>
       </ion-card-content>
-  </ion-content>
-  <ion-content>
-    <ion-card *ngFor="let comentario of comentarios">
-      <ion-card-header>
-        <ion-card-title>{{comentario.users.nome}}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        {{comentario.descricao}}
-      </ion-card-content>
-    </ion-card>
-  </ion-content>
+  </div>
+
+  <div *ngFor="let comentario of comentarios">
+    <div>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="../../../assets/avatar.png">
+        </ion-avatar>
+        <ion-label>
+          <a (click)="visualizaPerfilComentario(comentario.users)">{{comentario.users.nome}}</a>
+          <p>{{comentario.updated_at}}</p>
+          <div class="container-comentario">
+            <p>{{comentario.descricao}}</p>
+          </div>
+        </ion-label>
+      </ion-item>
+    </div>
+
+  </div>
+
 </ion-content>
 
 

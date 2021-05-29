@@ -7,7 +7,7 @@
   <ion-title>Home</ion-title>
 </ion-toolbar>
 
-<ion-content [fullscreen]="true">
+<ion-content>
   <div *ngIf="!skeleton">
     <ion-list>
       <ion-item>
@@ -92,40 +92,48 @@
       </ion-item>
     </ion-list>
   </div>
-  <ion-card *ngFor="let post of postComUsuarios">
-    <img [src]="post.imagem" style="width: 100%; height: 50%!important;"> 
 
-    <ion-card-header>
-      <ion-card-title><strong>Postado por: </strong><a (click)="visualizaPerfil(post)">{{post.user.nome}}</a></ion-card-title>
-      <ion-card-subtitle>
-        <ion-icon class="eye" name="eye" (click)="detalhePost(post)"></ion-icon>
-      </ion-card-subtitle>
-      <div *ngIf="post.user.id == currentUserId">
-        <div *ngIf="post.status == true; else statusfalse">
-          <strong>Status: </strong><ion-icon (click)="mudaStatus(false, post.id)" name="lock-open-outline"></ion-icon>
-        </div>
-        <ng-template #statusfalse><strong>Status: </strong><ion-icon (click)="mudaStatus(true, post.id)" name="lock-closed-outline"></ion-icon></ng-template>
+  <div  *ngFor="let post of postComUsuarios">
+    <div class="container">
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="../../../assets/avatar.png">
+        </ion-avatar>
 
-      </div>
+        <ion-label>
+          <a (click)="visualizaPerfil(post)">{{post.user.nome}}</a>
+          <p>{{post.created_at}}</p>
 
+          <h4>{{post.descricao}}</h4>
+        </ion-label>
+      </ion-item>
+      <img [src]="post.imagem" style="width: 100%; height: 350px!important;"> 
+      <ion-item-divider>
+        <ion-label>
+          <ion-icon name="chatbox" (click)="detalhePost(post)"></ion-icon>
 
+          <div *ngIf="post.user.id == currentUserId">
+            <div *ngIf="post.status == true; else statusfalse">
+             <ion-icon (click)="mudaStatus(false, post.id)" name="lock-open-outline"></ion-icon>
+            </div>
+            <ng-template #statusfalse><ion-icon (click)="mudaStatus(true, post.id)" name="lock-closed-outline"></ion-icon></ng-template>
+          </div>
 
-    </ion-card-header>
-    <ion-card-content>
-      <strong>Descrição: </strong>{{post.descricao}}
-    </ion-card-content>
-    <ion-card-content *ngIf="post.user.id == currentUserId">
-      <ion-icon name="pencil"></ion-icon>
-      <ion-icon name="trash" (click)="deletePost(post)"></ion-icon>
-      
-    </ion-card-content>
-  </ion-card>
+          <div *ngIf="post.user.id == currentUserId">
+            <ion-icon name="pencil"></ion-icon>
+            <ion-icon name="trash" (click)="deletePost(post)"></ion-icon>
+          </div>
+        </ion-label>
+      </ion-item-divider>
+    </div>
+  </div>
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+
 </ion-content>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button color="dark" (click)="cadastrapost()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>

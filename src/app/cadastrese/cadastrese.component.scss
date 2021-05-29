@@ -5,13 +5,26 @@ ion-spinner {
     color: blue;
 }
 
-.fundo {
-    --background: #FFB800;
+ion-content {
+    form {
+        ion-item {
+            div {
+                display: flex;
+                flex-direction: column;
+            }
+            ion-input {
+                display: block;
+            }
+        }
+    }
 }
 
-ion-input {
-    border-bottom: 1px solid black;
-    font-size: 1.3em;
-    --padding-bottom: 10px;
-    --placeholder-color: black;
+ion-button {
+    display: block;
+    font-weight: bolder;
+    margin: 5px;
+}
+
+.colorValidacoes {
+    color: red;
 }

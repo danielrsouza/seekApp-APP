@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { Usuario } from '../classes/usuario';
 import { CadastreseService } from '../services/cadastrese.service';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 @Component({
   selector: 'app-cadastrese',
@@ -17,13 +18,15 @@ export class CadastreseComponent implements OnInit   {
   spinnerLoading = false;
   isTextFieldType: boolean;
   isTextFieldTypeConfirm: boolean;
+  imageUrl;
 
   constructor
   (
     private fb: FormBuilder,
     private cadastreseService: CadastreseService,
     public toastController: ToastController,
-    private router: Router
+    private router: Router,
+    private camera: Camera,
   )
   {
     localStorage.clear();
@@ -46,6 +49,9 @@ export class CadastreseComponent implements OnInit   {
     }
 
     if (this.formCadastrese.valid) {
+      if (this.imageUrl) {
+        this.usuario.avatar = this.imageUrl;
+      }
       this.cadastreseService.cadastra(this.usuario).subscribe(resp => {
         localStorage.setItem('CurrentUser', JSON.stringify(this.usuario));
         this.spinnerLoading = false;
@@ -55,8 +61,6 @@ export class CadastreseComponent implements OnInit   {
     }
 
   }
-
-
 
   async presentToast() {
     const toast = await this.toastController.create({
@@ -98,6 +102,27 @@ export class CadastreseComponent implements OnInit   {
       telefone: [this.telefone,[Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
       data_nascimento: [this.data_nascimento, [Validators.required]]
     })
+  }
+
+  abriGaleria()
+  {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    }
+
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64 (DATA_URL):
+      let base64Image = 'data:image/jpeg;base64,' + imageData;
+      this.imageUrl = base64Image;
+      
+     }, (err) => {
+      // Handle error
+     });
   }
 
   get registerFormControl() {

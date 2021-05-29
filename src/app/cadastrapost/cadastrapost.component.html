@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Cadastra Post</ion-title>
+    <ion-title>Novo Post</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -14,8 +14,9 @@
       <div *ngIf="registerFormControl.descricao.errors" class="invalid-feedback">
         <div *ngIf="registerFormControl.descricao.errors.required">Preencha a descrição</div>
     </div>
-      <ion-item>
-        <ion-button (click)="abriGaleria()">Camera</ion-button>
+      <ion-item (click)="abriGaleria()">
+        <ion-label>Imagem</ion-label>
+        <ion-icon name="images-outline"></ion-icon>
       </ion-item>
       <div *ngIf="registerFormControl.imagem.errors" class="invalid-feedback">
         <div *ngIf="registerFormControl.imagem.errors.required">Insira uma imagem</div>

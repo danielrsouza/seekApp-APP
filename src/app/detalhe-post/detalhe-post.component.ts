@@ -15,7 +15,6 @@ import { UserService } from '../services/user.service';
 })
 export class DetalhePostComponent implements OnInit {
 
-
   nome;
   descricao;
   userComentario;
@@ -36,27 +35,27 @@ export class DetalhePostComponent implements OnInit {
     private comentarioService: ComentariosService, 
     private fb: FormBuilder,
     private router: Router
-    ) { }
+    ) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.postId = params.id;
-      this.postService.buscaPostPorId(params.id).subscribe(resp => {
-        console.log('post', resp);
-        this.imgPost = resp.imagem;
-        this.nome = resp.user.nome;
-        this.descricao = resp.descricao;
-        this.userPost = resp.user;
+
+      this.postService.buscaPostPorId(params.id).subscribe(post => {
+        this.imgPost = post.imagem;
+        this.nome = post.user.nome;
+        this.descricao = post.descricao;
+        this.userPost = post.user;
         this.skeleton = true;
 
-        this.comentarioService.buscaComent(resp.id).subscribe(comentarios => {
-          if (comentarios.length > 0) {
-            this.show = true;
-          } else {
-            this.show = false;
-          }
-          this.comentarios = comentarios;
-        })
+          this.comentarioService.buscaComent(post.id).subscribe(comentarios => {
+            if (comentarios.length > 0) {
+              this.show = true;
+            } else {
+              this.show = false;
+            }
+            this.comentarios = comentarios;
+          })
       })
     });
   }
@@ -70,14 +69,10 @@ export class DetalhePostComponent implements OnInit {
     }
     this.criaFormulario(new Comentario())
 
-    
-    // let comment
-
   }
 
   criaFormulario(comentario: Comentario)
   {
-    console.log(comentario);
     this.formComentario = this.fb.group({
       descricao: [comentario.descricao],
     })
@@ -110,6 +105,13 @@ export class DetalhePostComponent implements OnInit {
   {
     this.router.navigate(['perfil'], {
       queryParams: this.userPost
+    });
+  }
+
+  visualizaPerfilComentario(userComentario)
+  {
+    this.router.navigate(['perfil'], {
+      queryParams: userComentario
     });
   }
 }
