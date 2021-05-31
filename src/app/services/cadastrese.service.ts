@@ -12,6 +12,10 @@ export class CadastreseService {
   constructor(private apiService: ApiService) {}
 
   cadastra(usuario: Usuario): Observable<Usuario> {
+    if (!usuario.avatar) {
+      usuario.avatar = null;
+    }
+    
     return this.apiService.post('/api/users', usuario);
   }
 

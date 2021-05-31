@@ -51,7 +51,6 @@ export class DetalhePostComponent implements OnInit {
         this.skeleton = true;
 
           this.comentarioService.buscaComent(post.id).subscribe(comentarios => {
-            console.log('comentario', comentarios[0].users.avatar)
             if (comentarios.length > 0) {
               this.show = true;
             } else {

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { timer } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 
@@ -12,11 +14,14 @@ export class ResetPasswordComponent implements OnInit {
 
   formResetPassowrd: FormGroup;
   email;
+  spinnerLoading = false;
 
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    public toastController: ToastController,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -32,10 +37,21 @@ export class ResetPasswordComponent implements OnInit {
 
   reset()
   {
+    this.spinnerLoading = true
     this.email = this.formResetPassowrd.value.email
     this.authService.resetPassword(this.email).subscribe(resp => {
-      console.log(resp);
+      this.spinnerLoading = false
+      this.resetToast();
+      this.router.navigateByUrl('login')
     })
+  }
+
+  async resetToast() {
+    const toast = await this.toastController.create({
+      message: 'Email de redefinição de senha enviado com sucesso!',
+      duration: 4000
+    });
+    toast.present();
   }
 
 }

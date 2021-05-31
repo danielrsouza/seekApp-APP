@@ -64,7 +64,6 @@ export class LoginComponent implements OnInit {
     const url = `https://graph.facebook.com/${this.userId}?fields=id,name,picture.width(720),birthday,email&access_token=${this.token}`;
     this.http.get<any>(url).subscribe(res => {
       this.userService.buscaUserFbId(res.id).subscribe(usuarioFb => {
-        console.log('ufb',usuarioFb)
         if (usuarioFb) {
           usuarioFb.password = usuarioFb.facebook_id
           this.authService.login(usuarioFb).subscribe(response => {
@@ -113,6 +112,10 @@ export class LoginComponent implements OnInit {
           this.emailVerificadoToast();
         }
       })
+    }, error => {
+      console.log(error.error.message);
+      this.spinnerLoading = false
+      this.senhaIncorretaToast();
     })
   }
 
@@ -147,6 +150,14 @@ export class LoginComponent implements OnInit {
   async emailVerificadoToast() {
     const toast = await this.toastController.create({
       message: 'Email não verificado, verifique seus e-mails!',
+      duration: 7000
+    });
+    toast.present();
+  }
+
+  async senhaIncorretaToast() {
+    const toast = await this.toastController.create({
+      message: 'Email ou senha não encontrados em nossa base de dados!',
       duration: 7000
     });
     toast.present();

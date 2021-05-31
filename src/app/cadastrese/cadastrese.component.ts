@@ -37,7 +37,7 @@ export class CadastreseComponent implements OnInit   {
   }
 
   cadastrese() {
-    // Monta as validações que serão testadas ao enviar.
+    // Monta as validaÃ§Ãµes que serÃ£o testadas ao enviar.
     this.criaValidators();
 
     this.spinnerLoading = true
@@ -57,6 +57,8 @@ export class CadastreseComponent implements OnInit   {
         this.spinnerLoading = false;
         this.presentToast();
         this.router.navigateByUrl('email-confirmation')
+      }, error => {
+        this.errorToast(error.error.message);
       })
     }
 
@@ -65,6 +67,14 @@ export class CadastreseComponent implements OnInit   {
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'Usuário cadastrado com sucesso!',
+      duration: 6000
+    });
+    toast.present();
+  }
+
+  async errorToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
       duration: 6000
     });
     toast.present();

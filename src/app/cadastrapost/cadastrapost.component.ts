@@ -46,11 +46,13 @@ export class CadastrapostComponent implements OnInit {
 
     this.post.id_usuario = this.currentUser.id;
     this.post.imagem = this.imageUrl;
-    
 
     this.postService.cadastra(this.post).subscribe(post => {
       this.spinnerLoading = false;
       this.presentToast();
+      this.router.navigateByUrl('home')
+    }, error => {
+      this.errorCadastrarPost()
       this.router.navigateByUrl('home')
     })
 
@@ -112,6 +114,14 @@ export class CadastrapostComponent implements OnInit {
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'Post cadastrado com sucesso!',
+      duration: 6000
+    });
+    toast.present();
+  }
+
+  async errorCadastrarPost() {
+    const toast = await this.toastController.create({
+      message: 'Ocorreu um erro ao cadastrar o post!',
       duration: 6000
     });
     toast.present();

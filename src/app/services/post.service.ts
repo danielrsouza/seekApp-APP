@@ -15,14 +15,17 @@ export class PostService {
 
   cadastra(post: Post): Observable<Post>
   {
+    var longitude =  localStorage.getItem('longitude');
+    var latitude =  localStorage.getItem('latitude');
 
+    console.log(longitude, latitude);
     const params = {
       id_usuario: post.id_usuario,
       descricao: post.descricao,
       imagem: post.imagem,
       status: true,
-      longitude: JSON.stringify(localStorage.getItem('longitude')),
-      latitude: JSON.stringify(localStorage.getItem('latitude'))
+      longitude: longitude,
+      latitude: latitude
     }
     
     return this.apiService.post(this.endpoint, params);
@@ -30,7 +33,7 @@ export class PostService {
   
   buscaPosts(longitude, latitude)
   {
-    return this.apiService.get(`${this.endpoint}?latitude=${longitude}?longitude=${latitude}`);
+    return this.apiService.get(`${this.endpoint}?latitude=${latitude}&longitude=${longitude}`);
   }
 
   deletaPost(id)

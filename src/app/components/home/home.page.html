@@ -93,6 +93,12 @@
     </ion-list>
   </div>
 
+  <div *ngIf="show" style="height: 10%;">
+    <ion-card-content>
+      <strong>Não existe nenhum post para sua localização...</strong>
+    </ion-card-content>
+  </div>
+
   <div  *ngFor="let post of postComUsuarios">
     <div class="container">
       <ion-item>
@@ -112,13 +118,15 @@
           <a (click)="visualizaPerfil(post)">{{post.user.nome}}</a>
           <p>{{post.created_at}}</p>
 
-          <h4>{{post.descricao}}</h4>
+          <p>{{post.descricao}}</p>
         </ion-label>
       </ion-item>
       <img [src]="post.imagem" style="width: 100%; height: 350px!important;"> 
       <ion-item-divider>
         <ion-label>
-          <ion-icon name="chatbox" (click)="detalhePost(post)"></ion-icon>
+
+        <div style="display: flex;" *ngIf="!spinnerActions">
+          <ion-icon name="eye" (click)="detalhePost(post)"></ion-icon>
 
           <div *ngIf="post.user.id == currentUserId">
             <div *ngIf="post.status == true; else statusfalse">
@@ -131,6 +139,11 @@
             <ion-icon name="pencil"></ion-icon>
             <ion-icon name="trash" (click)="deletePost(post)"></ion-icon>
           </div>
+        </div>
+        <div *ngIf="spinnerActions"  class="spinnerCenter">
+          <ion-spinner name="crescent"></ion-spinner>
+        </div>
+
         </ion-label>
       </ion-item-divider>
     </div>
@@ -140,12 +153,16 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
+  <div *ngIf="spinnerLoading"  class="spinnerCenter">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
 </ion-content>
 <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button color="dark" (click)="cadastrapost()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
-  </ion-fab>
+</ion-fab>
 
 
 
