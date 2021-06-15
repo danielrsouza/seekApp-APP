@@ -19,6 +19,7 @@ export class CadastreseComponent implements OnInit   {
   isTextFieldType: boolean;
   isTextFieldTypeConfirm: boolean;
   imageUrl;
+  tempFilename;
 
   constructor
   (
@@ -114,21 +115,28 @@ export class CadastreseComponent implements OnInit   {
     })
   }
 
-  abriGaleria()
+
+
+  async abriGaleria()
   {
+
+    
     const options: CameraOptions = {
       quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
+      destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
     }
 
     this.camera.getPicture(options).then((imageData) => {
+      this.tempFilename = imageData.substr(imageData.lastIndexOf('/') + 1);
+      const tempBaseFilesystemPath = imageData.substr(0, imageData.lastIndexOf('/') + 1);
       // imageData is either a base64 encoded string or a file URI
       // If it's base64 (DATA_URL):
       let base64Image = 'data:image/jpeg;base64,' + imageData;
       this.imageUrl = base64Image;
+      console.log(this.camera);
       
      }, (err) => {
       // Handle error

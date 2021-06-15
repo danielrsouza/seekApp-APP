@@ -43,6 +43,10 @@ const routes: Routes = [
     loadChildren: () => import('./reset-password/reset-password-routing.module').then( m => m.ResetPasswordRoutingModule)
   },
   {
+    path: 'edit-post',
+    loadChildren: () => import('./edit-post/edit-post-rountig.module').then( m => m.EditPostRoutingModule)
+  },
+  {
     path: '',
     redirectTo: 'inicio',
     pathMatch: 'full'

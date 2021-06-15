@@ -4,6 +4,6 @@
     <string name="title_activity_main">seekApp-APP</string>
     <string name="package_name">com.seekapp.app</string>
     <string name="custom_url_scheme">com.seekapp.app</string>
-        <string name="facebook_app_id">1404325036590780</string>
-    <string name="fb_login_protocol_scheme">fb1404325036590780</string>
+    <string name="facebook_app_id">1404325036590780</string>
+<string name="fb_login_protocol_scheme">fb1404325036590780</string>
 </resources>

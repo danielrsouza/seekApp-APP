@@ -6,4 +6,5 @@ export class UsuarioFacebook {
     telefone: string = '';
     data_nascimento: Date;
     facebook_id: string = '';
+    avatar: string;
 }

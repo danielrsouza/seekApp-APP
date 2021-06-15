@@ -18,7 +18,6 @@ export class PostService {
     var longitude =  localStorage.getItem('longitude');
     var latitude =  localStorage.getItem('latitude');
 
-    console.log(longitude, latitude);
     const params = {
       id_usuario: post.id_usuario,
       descricao: post.descricao,
@@ -49,5 +48,19 @@ export class PostService {
   mudaStatusPost(status, id) 
   {
     return this.http.get(`${environment.api_url}/api/status?id=${id}&status=${status}`);   
+  }
+
+  atualizaPost(novosDados, post)
+  {
+    const params = {
+      id_usuario: post.id_usuario,
+      descricao: novosDados.descricao,
+      imagem: novosDados.imagem,
+      status: true,
+      longitude: post.longitude,
+      latitude: post.latitude
+    }
+    
+    return this.http.post(`${environment.api_url}${this.endpoint}/${post.id}`, params)
   }
 }

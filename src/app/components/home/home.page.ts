@@ -21,6 +21,7 @@ export class HomePage implements OnInit{
   latitude;
   spinnerActions = false;
   show = false;
+  currentUserAvatar;
 
   constructor(
     private router: Router, 
@@ -34,9 +35,18 @@ export class HomePage implements OnInit{
   }
 
   ionViewWillEnter() {
+    if (!localStorage.getItem('token')) {
+      this.router.navigateByUrl('inicio');
+    }
+
     this.spinnerLoading = true;
     if (this.longitude && this.latitude) {
       this.postService.buscaPosts(this.longitude, this.latitude).subscribe(post => {
+        if (post.length == 0 ) {
+          this.show = true
+        } else {
+          this.show = false;
+        }
         this.spinnerLoading = false;
         this.postComUsuarios = post;
       })
@@ -58,12 +68,17 @@ export class HomePage implements OnInit{
         this.router.navigateByUrl('login');
      })
      .finally( () => {
+
+
         this.userService.buscaUserLogado().subscribe(user => {
           this.currentUserId = user.id
+          this.currentUserAvatar = user.avatar
           localStorage.setItem('currentUser', JSON.stringify(user))
           this.postService.buscaPosts(this.longitude, this.latitude).subscribe(post => {
             if (post.length == 0 ) {
               this.show = true
+            } else {
+              this.show = false;
             }
             this.spinnerLoading = false;
             this.postComUsuarios = post;
@@ -92,17 +107,31 @@ export class HomePage implements OnInit{
     this.spinnerActions = false;
   }
 
+  editPost(post) {
+    this.spinnerActions = true;
+    this.router.navigate(['edit-post'], {
+      queryParams: post
+    });
+    this.spinnerActions = false;
+  }
+
   deletePost(post)
   {
     this.spinnerActions = true;
     this.postService.deletaPost(post.id).subscribe(resp => {
-      this.spinnerActions = false;
       this.presentToast(resp.message);
       if (resp.success) {
-        
         this.postService.buscaPosts(this.longitude, this.latitude).subscribe(posts => {
+          if (posts.length == 0 ) {
+            this.show = true
+          } else {
+            this.show = false;
+          }
           this.postComUsuarios = posts;
+          this.spinnerActions = false;
         })
+      } else {
+        this.spinnerActions = false;
       }
     })
   }
@@ -161,16 +190,16 @@ export class HomePage implements OnInit{
     localStorage.clear();
     sessionStorage.clear();
     this.logoutToast();
-    this.router.navigateByUrl('login');
+    this.router.navigateByUrl('inicio');
   }
 
   mudaStatus(status, id)
   {
     this.spinnerActions = true;
     this.postService.mudaStatusPost(status, id).subscribe(resp => {
-      this.spinnerActions = false;
       this.postService.buscaPosts(this.longitude, this.latitude).subscribe(posts => {
         this.postComUsuarios = posts;
+        this.spinnerActions = false;
       })
     })
   }

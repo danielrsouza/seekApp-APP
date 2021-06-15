@@ -14,6 +14,7 @@ export class PerfilComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
+      console.log(params);
       this.userPerfil = params
     });
   }

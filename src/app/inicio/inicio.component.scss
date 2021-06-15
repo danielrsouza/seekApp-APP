@@ -1,3 +1,9 @@
+ion-spinner {
+    display: block;
+    margin: auto;
+    margin-top: 2em;
+    color: blue;
+}
 
 ion-content {
     --padding-bottom: 10px;
@@ -14,10 +20,23 @@ ion-content {
 }
 
 ion-footer {
-    ion-toolbar {
-        ion-title {
-            color: white;
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    ion-slide {
+        .container {
+            height: 100px;
+            padding: 10px;
+            background: var(--ion-color-primary-tint);
+            margin: 0 5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            ion-icon {
+                font-size: 24px;
+            }
+
+            span {
+                font-size: 16px;
+            }
         }
     }
 }

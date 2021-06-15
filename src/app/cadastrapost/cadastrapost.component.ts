@@ -18,7 +18,8 @@ export class CadastrapostComponent implements OnInit {
   post: Post;
   spinnerLoading = false;
   currentUser: Usuario
-  imageUrl
+  imageUrl;
+  tempFilename;
 
   constructor(    
     private fb: FormBuilder,
@@ -69,6 +70,8 @@ export class CadastrapostComponent implements OnInit {
     }
 
     this.camera.getPicture(options).then((imageData) => {
+      this.tempFilename = imageData.substr(imageData.lastIndexOf('/') + 1);
+      const tempBaseFilesystemPath = imageData.substr(0, imageData.lastIndexOf('/') + 1);
       // imageData is either a base64 encoded string or a file URI
       // If it's base64 (DATA_URL):
       let base64Image = 'data:image/jpeg;base64,' + imageData;

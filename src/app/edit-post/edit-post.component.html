@@ -3,28 +3,28 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Novo Post</ion-title>
+    <ion-title>Atualiza Post</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <form [formGroup]="formPost" (ngSubmit)="persistPost()">
+  <form [formGroup]="formPostUpdate" (ngSubmit)="atualizaPost()">
       <ion-item>
         <ion-input type="text" placeholder="Descricao" formControlName="descricao"></ion-input>
       </ion-item>
-      <div *ngIf="registerFormControl.descricao.errors" class="invalid-feedback erro">
+      <div *ngIf="registerFormControl.descricao.errors" class="invalid-feedback">
         <div *ngIf="registerFormControl.descricao.errors.required">Preencha a descrição</div>
     </div>
       <ion-item (click)="abriGaleria()">
         <ion-label>Imagem <span>{{tempFilename}}</span></ion-label>
         <ion-icon name="images-outline"></ion-icon>
       </ion-item>
-      <div *ngIf="registerFormControl.imagem.errors" class="invalid-feedback erro">
+      <div *ngIf="registerFormControl.imagem.errors" class="invalid-feedback">
         <div *ngIf="registerFormControl.imagem.errors.required">Insira uma imagem</div>
     </div>
 
       <ion-row>
         <ion-col *ngIf="!spinnerLoading">
-          <ion-button color="dark" expand="block" type="submit">Cadastrar</ion-button>
+          <ion-button color="dark" expand="block" type="submit">Atualizar</ion-button>
         </ion-col>
       </ion-row>
   </form>

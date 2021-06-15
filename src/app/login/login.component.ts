@@ -6,8 +6,7 @@ import { AuthService } from '../auth/auth.service';
 import { UsuarioLogin } from '../classes/usuarioLogin';
 import { UserService } from '../services/user.service';
 
-import { FacebookLogin, FacebookLoginPlugin } from '@capacitor-community/facebook-login'
-import { Plugins, registerWebPlugin} from '@capacitor/core';
+
 import { HttpClient } from '@angular/common/http';
 import { CadastreseService } from '../services/cadastrese.service';
 import { Usuario } from '../classes/usuario';
@@ -20,11 +19,6 @@ import { UsuarioFacebook } from '../classes/usuarioFacebook';
 })
 export class LoginComponent implements OnInit {
 
-  //Facebook
-  fbLogin: FacebookLoginPlugin
-  userfb: UsuarioFacebook = null;
-  token = null;
-  userId = null;
 
   formLogin: FormGroup;
   user: UsuarioLogin;
@@ -37,8 +31,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     public toastController: ToastController,
-    private cadastraService: CadastreseService,
-    private http: HttpClient,
+
     private userService: UserService
   ) {}
 
@@ -46,48 +39,8 @@ export class LoginComponent implements OnInit {
     this.criaFormulario(new UsuarioLogin())
   }
 
-  
-  async loginFb(): Promise<void> {
-    const FACEBOOK_PERMISSIONS = ['public_profile', 'email', 'user_birthday'];
 
-    const result = await Plugins.FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS });
 
-    if (result && result.accessToken) {
-      this.token = result.accessToken.token
-      this.userId = result.accessToken.userId
-      this.carregaDadosUserFb()
-      // this.router.navigate(["/home"], navigationExtras);
-    }
-  }
-
-  async carregaDadosUserFb() {
-    const url = `https://graph.facebook.com/${this.userId}?fields=id,name,picture.width(720),birthday,email&access_token=${this.token}`;
-    this.http.get<any>(url).subscribe(res => {
-      this.userService.buscaUserFbId(res.id).subscribe(usuarioFb => {
-        if (usuarioFb) {
-          usuarioFb.password = usuarioFb.facebook_id
-          this.authService.login(usuarioFb).subscribe(response => {
-            localStorage.setItem('token', response.access_token);
-            this.presentToast();
-            this.router.navigateByUrl('home')
-          })
-        } else {
-          let user: UsuarioFacebook = { id: res.id, email: res.email, data_nascimento: res.birthday, nome: res.name, password: res.id, telefone: '0000000', facebook_id: res.id}
-          this.cadastraService.cadastraFb(user).subscribe(respCad => {
-            if (respCad) {
-              respCad.password = respCad.id;
-              this.authService.login(respCad).subscribe(respLogin => {
-                localStorage.setItem('token', respLogin.access_token);
-                this.presentToast();
-                this.router.navigateByUrl('home')
-              })
-            }
-          })
-        }
-      })
-    });
-  }
-  
   login() {
     this.criaValidators();
     this.spinnerLoading = true
@@ -163,10 +116,7 @@ export class LoginComponent implements OnInit {
     toast.present();
   }
 
-  resetPassword()
-  {
-    this.router.navigateByUrl('reset-password')
-  }
+
 
   get email()
   {

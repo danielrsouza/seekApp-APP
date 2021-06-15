@@ -7,16 +7,36 @@
     </ion-header>
 
     <ion-content color="tertiary" padding>
+      <div *ngIf="!spinnerLoading">
         <ion-button color="light" expend="block" fill="outline" shape="round" (click)="login()">Entrar</ion-button>
         <ion-button color="light" expend="block" fill="outline" shape="round" (click)="cadastrese()">Cadastre-se</ion-button>
+      </div>
+
+      <div *ngIf="spinnerLoading"  class="spinnerCenter">
+        <ion-spinner name="crescent"></ion-spinner>
+      </div>
     </ion-content>
 
-    <ion-footer class="ion-no-border">
+    <ion-footer *ngIf="!spinnerLoading" class="ion-no-border">
       <ion-toolbar color="tertiary">
-        <ion-title class="ion-text-center">SeekApp</ion-title>
+        <div class="container">
+          <ion-slides [options]="optionsSlides">
+            <ion-slide>
+              <div (click)="resetPassword()">
+                <ion-icon name="construct"></ion-icon>
+                <span>Esqueci minha senha</span>
+              </div>
+            </ion-slide>
+            <ion-slide>
+              <div (click)="loginFb()">
+                <ion-icon name="logo-facebook" ></ion-icon>
+                <span>Fazer login com o facebook</span>
+              </div>
+            </ion-slide>
+          </ion-slides>
+        </div>
       </ion-toolbar>
     </ion-footer>
-
 
   
 

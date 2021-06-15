@@ -29,15 +29,23 @@ import { EmailConfirmationComponent } from './email-confirmation/email-confirmat
 import { EmailConfirmationModule } from './email-confirmation/email-confirmation/email-confirmation.module';
 import { ResetPasswordModule } from './reset-password/reset-password/reset-password.module';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
+import { EditPostModule } from './edit-post/edit-post/edit-post.module';
+import { InicioModule } from './inicio/inicio/inicio.module';
+import { InicioComponent } from './inicio/inicio.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, CadastreseComponent, CadastrapostComponent, DetalhePostComponent, PerfilComponent, CallbackComponent, EmailConfirmationComponent, ResetPasswordComponent],
+  declarations: [AppComponent, LoginComponent, CadastreseComponent, 
+    CadastrapostComponent, DetalhePostComponent, PerfilComponent, 
+    CallbackComponent, EmailConfirmationComponent, ResetPasswordComponent, 
+    EditPostComponent, InicioComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), 
             AppRoutingModule, HttpClientModule, 
             ReactiveFormsModule, CommonModule, 
             LoginModule, CadastreseModule, 
-            FormsModule, DetalhePostModule, PerfilRoutingModule, CallbackModule, HttpClientModule, EmailConfirmationModule, ResetPasswordModule, FormsModule],
+            FormsModule, DetalhePostModule, PerfilRoutingModule, CallbackModule, HttpClientModule, 
+            EmailConfirmationModule, ResetPasswordModule, FormsModule, EditPostModule, InicioModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
     {
       provide: HTTP_INTERCEPTORS,

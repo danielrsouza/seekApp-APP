@@ -1,8 +1,8 @@
-<ion-toolbar color="dark">
+<ion-toolbar color="dark" style="padding: 10px;">
   <ion-buttons slot="secondary">
-    <ion-button (click)="logout()">
-      <ion-icon slot="icon-only" name="person-circle" ></ion-icon>
-    </ion-button>
+      <ion-avatar (click)="logout()" style="width: 45px; height: 45px">
+        <img [src]="currentUserAvatar">
+      </ion-avatar>
   </ion-buttons>
   <ion-title>Home</ion-title>
 </ion-toolbar>
@@ -114,7 +114,7 @@
           </ion-avatar>  
         </ng-template>
 
-        <ion-label>
+        <ion-label style="margin-left: 15px;">
           <a (click)="visualizaPerfil(post)">{{post.user.nome}}</a>
           <p>{{post.created_at}}</p>
 
@@ -136,11 +136,11 @@
           </div>
 
           <div *ngIf="post.user.id == currentUserId">
-            <ion-icon name="pencil"></ion-icon>
+            <ion-icon name="pencil" (click)="editPost(post)"></ion-icon>
             <ion-icon name="trash" (click)="deletePost(post)"></ion-icon>
           </div>
         </div>
-        <div *ngIf="spinnerActions"  class="spinnerCenter">
+        <div style="display: flex;" *ngIf="spinnerActions"  class="spinnerCenter">
           <ion-spinner name="crescent"></ion-spinner>
         </div>
 

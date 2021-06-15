@@ -9,24 +9,25 @@
 
 <ion-content color="tertiary">
   <img src="../../assets/search.png" alt="logo de busca"/>
-
-
+  
     <form [formGroup]="formLogin" (ngSubmit)="login()">
       <ion-item color="light">
         <ion-input formControlName="email" class="form-control" type="text" value="" placeholder="Email"></ion-input>
-        <div *ngIf="registerFormControl.email.errors" class="invalid-feedback">
-          <div *ngIf="registerFormControl.email.errors.required">Preencha o email</div>
-          <div *ngIf="registerFormControl.email.errors.email">Preencha com email valido</div>
-        </div>
       </ion-item>
+
+      <div *ngIf="registerFormControl.email.errors" class="invalid-feedback erro" >
+        <div *ngIf="registerFormControl.email.errors.required">Preencha o email</div>
+        <div *ngIf="registerFormControl.email.errors.email">Preencha com email valido</div>
+      </div>
     
       <ion-item color="light">
         <ion-input formControlName="password" class="form-control" type="password" value="" placeholder="Senha"></ion-input>
-        <div *ngIf="registerFormControl.password.errors" class="invalid-feedback">
-          <div *ngIf="registerFormControl.password.errors.required">Preencha a senha</div>
-          <div *ngIf="registerFormControl.password.errors.minlength">A senha deve conter pelo menos 8 caracteres</div>
-        </div>
       </ion-item>
+
+      <div *ngIf="registerFormControl.password.errors" class="invalid-feedback erro">
+        <div *ngIf="registerFormControl.password.errors.required">Preencha a senha</div>
+        <div *ngIf="registerFormControl.password.errors.minlength">A senha deve conter pelo menos 8 caracteres</div>
+      </div>
 
         <div *ngIf="!spinnerLoading">
           <ion-button color="light" expend="block" fill="outline" shape="round" type="submit">Entrar</ion-button>
@@ -39,22 +40,3 @@
   </div>
 
 </ion-content>
-
-<ion-footer class="ion-no-border">
-  <ion-toolbar color="tertiary">
-    <ion-slides [options]="optionsSlides">
-      <ion-slide>
-        <div class="container" (click)="resetPassword()">
-          <ion-icon name="construct"></ion-icon>
-          <span>Esqueci minha senha</span>
-        </div>
-      </ion-slide>
-      <ion-slide>
-        <div class="container" (click)="loginFb()">
-          <ion-icon name="logo-facebook" ></ion-icon>
-          <span>Fazer login com o facebook</span>
-        </div>
-      </ion-slide>
-    </ion-slides>
-  </ion-toolbar>
-</ion-footer>

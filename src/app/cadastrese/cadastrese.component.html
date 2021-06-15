@@ -11,56 +11,57 @@
   <form [formGroup]="formCadastrese" (ngSubmit)="cadastrese()">
     <ion-item color="light">
       <ion-input type="text" class="form-control" formControlName="nome" placeholder="Nome"></ion-input>
-      <div *ngIf="registerFormControl.nome.errors" class="invalid-feedback">
-        <div  class="colorValidacoes" *ngIf="registerFormControl.nome.errors.required">Preencher</div>
-        <div  class="colorValidacoes" *ngIf="registerFormControl.nome.errors.minlength">Ao menos 4 letras</div>
-      </div>
     </ion-item>
+    <div *ngIf="registerFormControl.nome.errors" class="erro invalid-feedback">
+      <div  class="colorValidacoes" *ngIf="registerFormControl.nome.errors.required">Preencher</div>
+      <div  class="colorValidacoes" *ngIf="registerFormControl.nome.errors.minlength">Ao menos 4 letras</div>
+    </div>
 
     <ion-item color="light">
       <ion-input  type="email" formControlName="email" placeholder="Email"></ion-input>
-      <div *ngIf="registerFormControl.email.errors" class="invalid-feedback">
-        <div class="colorValidacoes" *ngIf="registerFormControl.email.errors.required">Preencher</div>
-        <div  class="colorValidacoes"*ngIf="registerFormControl.email.errors.email">Email inválido</div>
-      </div>
     </ion-item>
+    <div *ngIf="registerFormControl.email.errors" class="erro invalid-feedback">
+      <div class="colorValidacoes" *ngIf="registerFormControl.email.errors.required">Preencher</div>
+      <div  class="colorValidacoes"*ngIf="registerFormControl.email.errors.email">Email inválido</div>
+    </div>
 
     <ion-item color="light">
       <ion-input [type]="isTextFieldType ? 'text' : 'password'" formControlName="password" placeholder="Senha"></ion-input>
       <ion-icon [name]="isTextFieldType ? 'eye-off' : 'eye'" (click)="togglePasswordFieldType()"></ion-icon>
-      <div *ngIf="registerFormControl.password.errors" class="invalid-feedback">
-        <div class="colorValidacoes" *ngIf="registerFormControl.password.errors.required">Preencher</div>
-        <div class="colorValidacoes"*ngIf="registerFormControl.password.errors.minlength">Ao menos 8 caracteres</div>
-      </div>
     </ion-item>
+    <div *ngIf="registerFormControl.password.errors" class="erro invalid-feedback">
+      <div class="colorValidacoes" *ngIf="registerFormControl.password.errors.required">Preencher</div>
+      <div class="colorValidacoes"*ngIf="registerFormControl.password.errors.minlength">Ao menos 8 caracteres</div>
+    </div>
 
     <ion-item color="light">
       <ion-input  [type]="isTextFieldTypeConfirm ? 'text' : 'password'" formControlName="passwordConfirm" placeholder="Confirmação de senha"></ion-input>
       <ion-icon [name]="isTextFieldTypeConfirm ? 'eye-off' : 'eye'" (click)="togglePasswordFieldTypeConfirm()"></ion-icon>
-      <div *ngIf="registerFormControl.passwordConfirm.errors" class="invalid-feedback">
-        <div class="colorValidacoes" *ngIf="registerFormControl.passwordConfirm.errors.required">Preencher</div>
-      </div>
     </ion-item>
+    <div *ngIf="registerFormControl.passwordConfirm.errors" class="erro invalid-feedback">
+      <div class="colorValidacoes" *ngIf="registerFormControl.passwordConfirm.errors.required">Preencher</div>
+    </div>
 
     <ion-item color="light">
       <ion-input  type="text" formControlName="telefone" placeholder="Telefone"></ion-input>
-      <div *ngIf="registerFormControl.telefone.errors" class="invalid-feedback">
-        <div class="colorValidacoes" *ngIf="registerFormControl.telefone.errors.required">Preencha o telefone</div>
-        <div class="colorValidacoes" *ngIf="registerFormControl.telefone.errors.minlength">Preencha o telefone com o código de area</div>
-      </div>
     </ion-item>
+    <div *ngIf="registerFormControl.telefone.errors" class="erro invalid-feedback">
+      <div class="colorValidacoes" *ngIf="registerFormControl.telefone.errors.required">Preencha o telefone</div>
+      <div class="colorValidacoes" *ngIf="registerFormControl.telefone.errors.minlength">Preencha o telefone com o código de area</div>
+    </div>
 
     <ion-item color="light">
-      <ion-input  type="date" formControlName="data_nascimento" placeholder="Data de Nascimento"></ion-input>
-      <div *ngIf="registerFormControl.data_nascimento.errors" class="invalid-feedback">
-        <div class="colorValidacoes" *ngIf="registerFormControl.data_nascimento.errors.required">Preencha a data de nascimento</div>
-      </div>
+      <ion-input  type="date" formControlName="data_nascimento">Data de Nascimento</ion-input>
     </ion-item>
+    <div *ngIf="registerFormControl.data_nascimento.errors" class="erro invalid-feedback">
+      <div class="colorValidacoes" *ngIf="registerFormControl.data_nascimento.errors.required">Preencha a data de nascimento</div>
+    </div>
 
     <ion-item color="light" (click)="abriGaleria()">
-      <ion-label>Imagem</ion-label>
+      <ion-label>Imagem <span>{{tempFilename}}</span></ion-label>
       <ion-icon name="images-outline"></ion-icon>
     </ion-item>
+
 
 
     <div *ngIf="!spinnerLoading">
