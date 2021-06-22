@@ -57,22 +57,26 @@
       <div class="colorValidacoes" *ngIf="registerFormControl.data_nascimento.errors.required">Preencha a data de nascimento</div>
     </div>
 
-    <ion-item color="light" (click)="abriGaleria()">
-      <ion-label>Imagem <span>{{tempFilename}}</span></ion-label>
-      <ion-icon name="images-outline"></ion-icon>
-    </ion-item>
+    <div *ngIf="!spinnerLoadingImg">
+      <ion-item color="light" (click)="abriGaleria()">
+        <ion-label>Imagem <span>{{tempBaseFilesystemPath}}</span></ion-label>
+        <ion-icon name="images-outline"></ion-icon>
+      </ion-item>
+      
+      <div *ngIf="imageUrl" style="width: 120px; height: 120px; margin: 12px auto;">
+        <img [src]="imageUrl" style="width: 120px; height: 120px;">
+      </div>
+    </div>
 
-
-
-    <div *ngIf="!spinnerLoading">
+    <div *ngIf="!spinnerLoading && !spinnerLoadingImg">
       <ion-button color="light" expend="block" fill="outline" shape="round" type="submit">Cadastrar</ion-button>
     </div>
-</form>
+  </form>
 
-    <div *ngIf="spinnerLoading"  class="spinnerCenter">
+    <div *ngIf="spinnerLoading || spinnerLoadingImg"  class="spinnerCenter">
       <ion-spinner name="crescent"></ion-spinner>
     </div>
-
+    
 </ion-content>
 
 

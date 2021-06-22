@@ -11,24 +11,34 @@
       <ion-item>
         <ion-input type="text" placeholder="Descricao" formControlName="descricao"></ion-input>
       </ion-item>
-      <div *ngIf="registerFormControl.descricao.errors" class="invalid-feedback">
+      <div *ngIf="registerFormControl.descricao.errors" class="invalid-feedback erro">
         <div *ngIf="registerFormControl.descricao.errors.required">Preencha a descrição</div>
     </div>
-      <ion-item (click)="abriGaleria()">
-        <ion-label>Imagem <span>{{tempFilename}}</span></ion-label>
+    <div *ngIf="!spinnerLoadingImg">
+      <ion-item color="light" (click)="abriGaleria()">
+        <ion-label>Imagem <span>{{tempBaseFilesystemPath}}</span></ion-label>
         <ion-icon name="images-outline"></ion-icon>
       </ion-item>
-      <div *ngIf="registerFormControl.imagem.errors" class="invalid-feedback">
+      
+      <div *ngIf="imageUrl" style="width: 120px; height: 120px; margin: 12px auto;">
+        <img [src]="imageUrl" style="width: 120px; height: 120px;">
+      </div>
+
+      <div *ngIf="registerFormControl.imagem.errors" class="invalid-feedback erro">
         <div *ngIf="registerFormControl.imagem.errors.required">Insira uma imagem</div>
+      </div>
+
     </div>
 
+
+
       <ion-row>
-        <ion-col *ngIf="!spinnerLoading">
+        <ion-col *ngIf="!spinnerLoading && !spinnerLoadingImg">
           <ion-button color="dark" expand="block" type="submit">Atualizar</ion-button>
         </ion-col>
       </ion-row>
   </form>
-  <ion-content *ngIf="spinnerLoading"  class="spinnerCenter" class="fundo">
+  <ion-content *ngIf="spinnerLoading || spinnerLoadingImg"  class="spinnerCenter" class="fundo">
     <ion-spinner name="crescent"></ion-spinner>
   </ion-content>
 </ion-content>

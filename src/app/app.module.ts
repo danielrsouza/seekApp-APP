@@ -22,8 +22,6 @@ import { PhotoLibrary } from '@ionic-native/photo-library/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
 import { PerfilComponent } from './perfil/perfil.component';
 import { PerfilRoutingModule } from './perfil/perfil/perfil.module';
-import { CallbackComponent } from './callback/callback.component';
-import { CallbackModule } from './callback/callback/callback.module';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { EmailConfirmationComponent } from './email-confirmation/email-confirmation.component';
 import { EmailConfirmationModule } from './email-confirmation/email-confirmation/email-confirmation.module';
@@ -37,15 +35,15 @@ import { InicioComponent } from './inicio/inicio.component';
 @NgModule({
   declarations: [AppComponent, LoginComponent, CadastreseComponent, 
     CadastrapostComponent, DetalhePostComponent, PerfilComponent, 
-    CallbackComponent, EmailConfirmationComponent, ResetPasswordComponent, 
-    EditPostComponent, InicioComponent],
+    EmailConfirmationComponent, ResetPasswordComponent, 
+    EditPostComponent, InicioComponent, ResetPasswordComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), 
             AppRoutingModule, HttpClientModule, 
             ReactiveFormsModule, CommonModule, 
             LoginModule, CadastreseModule, 
-            FormsModule, DetalhePostModule, PerfilRoutingModule, CallbackModule, HttpClientModule, 
-            EmailConfirmationModule, ResetPasswordModule, FormsModule, EditPostModule, InicioModule],
+            FormsModule, DetalhePostModule, PerfilRoutingModule, HttpClientModule, 
+            EmailConfirmationModule, ResetPasswordModule, FormsModule, EditPostModule, InicioModule, ResetPasswordModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
     {
       provide: HTTP_INTERCEPTORS,

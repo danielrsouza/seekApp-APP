@@ -35,6 +35,12 @@ export class UserService {
     return this.apiService.get(`${endpoint}?email=${email}`)
   }
 
+  exist(email)
+  {
+    const endpoint = "/api/email/exist";
+    return this.apiService.get(`${endpoint}?email=${email}`)
+  }
+
 
 
 }

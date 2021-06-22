@@ -5,6 +5,7 @@ import { ToastController } from '@ionic/angular';
 import { Usuario } from '../classes/usuario';
 import { CadastreseService } from '../services/cadastrese.service';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-cadastrese',
@@ -20,6 +21,8 @@ export class CadastreseComponent implements OnInit   {
   isTextFieldTypeConfirm: boolean;
   imageUrl;
   tempFilename;
+  tempBaseFilesystemPath;
+  spinnerLoadingImg = false;
 
   constructor
   (
@@ -28,10 +31,10 @@ export class CadastreseComponent implements OnInit   {
     public toastController: ToastController,
     private router: Router,
     private camera: Camera,
-  )
-  {
-    localStorage.clear();
-  }
+    private userService: UserService
+  ) { 
+      localStorage.clear();
+    }
 
   ngOnInit() {
     this.criaFormulario(new Usuario())
@@ -40,6 +43,8 @@ export class CadastreseComponent implements OnInit   {
   cadastrese() {
     // Monta as validaÃ§Ãµes que serÃ£o testadas ao enviar.
     this.criaValidators();
+
+    
 
     this.spinnerLoading = true
     this.usuario = this.formCadastrese.value
@@ -53,14 +58,25 @@ export class CadastreseComponent implements OnInit   {
       if (this.imageUrl) {
         this.usuario.avatar = this.imageUrl;
       }
-      this.cadastreseService.cadastra(this.usuario).subscribe(resp => {
-        localStorage.setItem('CurrentUser', JSON.stringify(this.usuario));
-        this.spinnerLoading = false;
-        this.presentToast();
-        this.router.navigateByUrl('email-confirmation')
-      }, error => {
+      this.userService.exist(this.usuario.email).subscribe(exist => {
+        if (exist) {
+          this.errorExist();
+          this.router.navigateByUrl('inicio');
+        }
+        this.cadastreseService.cadastra(this.usuario).subscribe( () => {
+          localStorage.setItem('CurrentUser', JSON.stringify(this.usuario));
+          this.spinnerLoading = false;
+          this.presentToast();
+          this.router.navigateByUrl('email-confirmation')
+        }, error => {
+          this.errorToast(error.error.message);
+          this.spinnerLoading = false;
+        });
+      },  error => {
         this.errorToast(error.error.message);
-      })
+        this.spinnerLoading = false;
+      });
+
     }
 
   }
@@ -76,6 +92,14 @@ export class CadastreseComponent implements OnInit   {
   async errorToast(message) {
     const toast = await this.toastController.create({
       message: message,
+      duration: 6000
+    });
+    toast.present();
+  }
+
+  async errorExist() {
+    const toast = await this.toastController.create({
+      message: 'Esse e-mail já está cadastrado!',
       duration: 6000
     });
     toast.present();
@@ -119,11 +143,10 @@ export class CadastreseComponent implements OnInit   {
 
   async abriGaleria()
   {
-
-    
+    this.spinnerLoadingImg = true;
     const options: CameraOptions = {
       quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
+      destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
@@ -131,15 +154,17 @@ export class CadastreseComponent implements OnInit   {
 
     this.camera.getPicture(options).then((imageData) => {
       this.tempFilename = imageData.substr(imageData.lastIndexOf('/') + 1);
-      const tempBaseFilesystemPath = imageData.substr(0, imageData.lastIndexOf('/') + 1);
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64 (DATA_URL):
+      this.tempBaseFilesystemPath = imageData.substr(0, imageData.lastIndexOf('/') + 1);
+
       let base64Image = 'data:image/jpeg;base64,' + imageData;
       this.imageUrl = base64Image;
-      console.log(this.camera);
+      this.spinnerLoadingImg = false;
+    
       
      }, (err) => {
-      // Handle error
+      this.spinnerLoadingImg = false;
+      this.errorGaleria(err.error.message);
+      this.router.navigateByUrl('inicio');
      });
   }
 
@@ -175,6 +200,14 @@ export class CadastreseComponent implements OnInit   {
   get data_nascimento()
   {
     return this.formCadastrese.get('data_nascimento').value
+  }
+
+  async errorGaleria(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 6000
+    });
+    toast.present();
   }
 
 

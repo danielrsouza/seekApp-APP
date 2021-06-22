@@ -20,6 +20,8 @@ export class CadastrapostComponent implements OnInit {
   currentUser: Usuario
   imageUrl;
   tempFilename;
+  tempBaseFilesystemPath;
+  spinnerLoadingImg = false;
 
   constructor(    
     private fb: FormBuilder,
@@ -27,7 +29,7 @@ export class CadastrapostComponent implements OnInit {
     private router: Router,
     private postService: PostService,
     private camera: Camera,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.criaFormulario(new Post())
@@ -36,8 +38,8 @@ export class CadastrapostComponent implements OnInit {
 
   persistPost()
   {
-    this.criaValidators();
     this.spinnerLoading = true
+    this.criaValidators();
     this.post = this.formPost.value
 
     if (this.formPost.invalid) {
@@ -49,18 +51,19 @@ export class CadastrapostComponent implements OnInit {
     this.post.imagem = this.imageUrl;
 
     this.postService.cadastra(this.post).subscribe(post => {
-      this.spinnerLoading = false;
       this.presentToast();
-      this.router.navigateByUrl('home')
+      this.router.navigateByUrl('home');
+      this.spinnerLoading = false;
     }, error => {
-      this.errorCadastrarPost()
-      this.router.navigateByUrl('home')
+      this.errorCadastrarPost();
+      this.router.navigateByUrl('home');
     })
 
   }
 
   abriGaleria()
   {
+    this.spinnerLoadingImg = true;
     const options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
@@ -71,14 +74,16 @@ export class CadastrapostComponent implements OnInit {
 
     this.camera.getPicture(options).then((imageData) => {
       this.tempFilename = imageData.substr(imageData.lastIndexOf('/') + 1);
-      const tempBaseFilesystemPath = imageData.substr(0, imageData.lastIndexOf('/') + 1);
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64 (DATA_URL):
+      this.tempBaseFilesystemPath = imageData.substr(0, imageData.lastIndexOf('/') + 1);
+
       let base64Image = 'data:image/jpeg;base64,' + imageData;
       this.imageUrl = base64Image;
+      this.spinnerLoadingImg = false;
       
      }, (err) => {
-      // Handle error
+      this.errorGaleria(err.error.message);
+      this.router.navigateByUrl('home');
+      this.spinnerLoadingImg = false;
      });
   }
 
@@ -88,7 +93,7 @@ export class CadastrapostComponent implements OnInit {
     this.formPost = this.fb.group({
       descricao: [post.descricao],
       imagem: [this.imageUrl],
-    })
+    });
   }
 
   criaValidators()
@@ -96,7 +101,7 @@ export class CadastrapostComponent implements OnInit {
     this.formPost = this.fb.group({
       descricao: [this.descricao, Validators.required],
       imagem: [this.imageUrl, Validators.required],
-    })
+    });
   }
 
   get registerFormControl() {
@@ -125,6 +130,14 @@ export class CadastrapostComponent implements OnInit {
   async errorCadastrarPost() {
     const toast = await this.toastController.create({
       message: 'Ocorreu um erro ao cadastrar o post!',
+      duration: 6000
+    });
+    toast.present();
+  }
+
+  async errorGaleria(message) {
+    const toast = await this.toastController.create({
+      message: message,
       duration: 6000
     });
     toast.present();

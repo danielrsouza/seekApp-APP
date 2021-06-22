@@ -31,7 +31,6 @@ export class EditPostComponent implements OnInit {
     private router: Router
   ) { 
     this.route.queryParams.subscribe(params => {
-      console.log(params)
       this.post = params;
       this.postDescricao = params.descricao;
       this.postImagem = params.imagem;
@@ -85,7 +84,6 @@ export class EditPostComponent implements OnInit {
 
   atualizaPost()
   {
-    console.log('oi');
     this.criaValidators();
     this.spinnerLoading = true
 
@@ -95,9 +93,9 @@ export class EditPostComponent implements OnInit {
     }
 
     this.postService.atualizaPost(this.formPostUpdate.value, this.post).subscribe(post => {
-      this.spinnerLoading = false;
       this.presentToast();
       this.router.navigateByUrl('home')
+      this.spinnerLoading = false;
     }, error => {
       this.errorAtualizarPost();
       this.router.navigateByUrl('home')

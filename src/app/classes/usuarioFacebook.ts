@@ -4,7 +4,7 @@ export class UsuarioFacebook {
     email: string = '';
     password: string = '';
     telefone: string = '';
-    data_nascimento: Date;
+    data_nascimento: string;
     facebook_id: string = '';
     avatar: string;
 }

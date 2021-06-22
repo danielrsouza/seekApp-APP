@@ -20,21 +20,29 @@
     <ion-footer *ngIf="!spinnerLoading" class="ion-no-border">
       <ion-toolbar color="tertiary">
         <div class="container">
+          
           <ion-slides [options]="optionsSlides">
+            
             <ion-slide>
+              
               <div (click)="resetPassword()">
-                <ion-icon name="construct"></ion-icon>
+                <ion-icon style="margin-right: 5px" name="construct"></ion-icon>
                 <span>Esqueci minha senha</span>
               </div>
+
             </ion-slide>
             <ion-slide>
               <div (click)="loginFb()">
-                <ion-icon name="logo-facebook" ></ion-icon>
+                <ion-icon style="margin-right: 5px" name="logo-facebook" ></ion-icon>
                 <span>Fazer login com o facebook</span>
               </div>
+
             </ion-slide>
+
           </ion-slides>
+          
         </div>
+
       </ion-toolbar>
     </ion-footer>
 

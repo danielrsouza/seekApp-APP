@@ -54,8 +54,7 @@ export class HomePage implements OnInit{
   }
 
   ngOnInit() {
-
-    
+    this.spinnerLoading = true;
     this.geolocation.getCurrentPosition()
     .then((resp) => {
       localStorage.setItem('longitude', JSON.stringify(resp.coords.longitude))
@@ -68,8 +67,6 @@ export class HomePage implements OnInit{
         this.router.navigateByUrl('login');
      })
      .finally( () => {
-
-
         this.userService.buscaUserLogado().subscribe(user => {
           this.currentUserId = user.id
           this.currentUserAvatar = user.avatar
@@ -80,10 +77,12 @@ export class HomePage implements OnInit{
             } else {
               this.show = false;
             }
-            this.spinnerLoading = false;
             this.postComUsuarios = post;
+            this.spinnerLoading = false;
           }, error => {
-            console.log(error)
+            this.errorAoBuscarPost();
+            this.router.navigateByUrl('login');
+            this.spinnerLoading = false;
           })
         }, error => {
           console.log(error)
@@ -108,15 +107,18 @@ export class HomePage implements OnInit{
   }
 
   editPost(post) {
+    this.spinnerLoading = true;
     this.spinnerActions = true;
     this.router.navigate(['edit-post'], {
       queryParams: post
     });
     this.spinnerActions = false;
+    this.spinnerLoading = false;
   }
 
   deletePost(post)
   {
+    this.spinnerLoading = true;
     this.spinnerActions = true;
     this.postService.deletaPost(post.id).subscribe(resp => {
       this.presentToast(resp.message);
@@ -129,9 +131,11 @@ export class HomePage implements OnInit{
           }
           this.postComUsuarios = posts;
           this.spinnerActions = false;
+          this.spinnerLoading = false;
         })
       } else {
         this.spinnerActions = false;
+        this.spinnerLoading = false;
       }
     })
   }
@@ -173,6 +177,14 @@ export class HomePage implements OnInit{
   async erroPermissao() {
     const toast = await this.toastController.create({
       message: 'Você precisa dar permissão de localização!',
+      duration: 6000
+    });
+    toast.present();
+  }
+
+  async errorAoBuscarPost() {
+    const toast = await this.toastController.create({
+      message: 'Não foi possível buscar os posts!',
       duration: 6000
     });
     toast.present();

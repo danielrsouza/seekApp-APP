@@ -31,10 +31,6 @@ const routes: Routes = [
     loadChildren: () => import('./perfil/perfil/perfil.module').then( m => m.PerfilRoutingModule)
   },
   {
-    path: 'callback',
-    loadChildren: () => import('./callback/callback/callback.module').then( m => m.CallbackModule)
-  },
-  {
     path: 'email-confirmation',
     loadChildren: () => import('./email-confirmation/email-confirmation-routing.module').then( m => m.EmailConfirmationRoutingModule)
   },

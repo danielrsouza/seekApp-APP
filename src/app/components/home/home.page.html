@@ -1,8 +1,15 @@
 <ion-toolbar color="dark" style="padding: 10px;">
   <ion-buttons slot="secondary">
-      <ion-avatar (click)="logout()" style="width: 45px; height: 45px">
-        <img [src]="currentUserAvatar">
-      </ion-avatar>
+        <div *ngIf="currentUserAvatar; else semAvatarUser">
+          <ion-avatar (click)="logout()" style="width: 45px; height: 45px">
+            <img [src]="currentUserAvatar">
+          </ion-avatar>
+        </div>
+        <ng-template #semAvatarUser>
+          <ion-avatar (click)="logout()" style="width: 45px; height: 45px">
+            <img src="../../../assets/avatar.png">
+          </ion-avatar>  
+        </ng-template>
   </ion-buttons>
   <ion-title>Home</ion-title>
 </ion-toolbar>
