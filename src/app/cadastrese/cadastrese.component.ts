@@ -23,6 +23,7 @@ export class CadastreseComponent implements OnInit   {
   tempFilename;
   tempBaseFilesystemPath;
   spinnerLoadingImg = false;
+  mostraErro = false;;
 
   constructor
   (
@@ -41,6 +42,12 @@ export class CadastreseComponent implements OnInit   {
   }
 
   cadastrese() {
+
+    if (!this.telefone) {
+      this.mostraErro = true;
+    } else {
+      this.mostraErro = false;
+    }
     // Monta as validaÃ§Ãµes que serÃ£o testadas ao enviar.
     this.criaValidators();
 
@@ -59,9 +66,10 @@ export class CadastreseComponent implements OnInit   {
         this.usuario.avatar = this.imageUrl;
       }
       this.userService.exist(this.usuario.email).subscribe(exist => {
-        if (exist) {
+        if (exist.success) {
           this.errorExist();
           this.router.navigateByUrl('inicio');
+          return false;
         }
         this.cadastreseService.cadastra(this.usuario).subscribe( () => {
           localStorage.setItem('CurrentUser', JSON.stringify(this.usuario));
@@ -134,7 +142,7 @@ export class CadastreseComponent implements OnInit   {
       email: [this.email, [Validators.required, Validators.email]],
       password: [this.password, [Validators.required, Validators.minLength(8)]],
       passwordConfirm: [this.passwordConfirm, [Validators.required, Validators.minLength(8), Validators.maxLength(11)]],
-      telefone: [this.telefone,[Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
+      telefone: [this.telefone],
       data_nascimento: [this.data_nascimento, [Validators.required]]
     })
   }

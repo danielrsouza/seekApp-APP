@@ -28,5 +28,9 @@
     <param name="onload" value="true"/>
   </feature>
 
+  <feature name="Sim">
+    <param name="android-package" value="com.pbakondy.Sim"/>
+  </feature>
+
   
 </widget>

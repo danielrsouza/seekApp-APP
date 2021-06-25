@@ -43,6 +43,10 @@ const routes: Routes = [
     loadChildren: () => import('./edit-post/edit-post-rountig.module').then( m => m.EditPostRoutingModule)
   },
   {
+    path: 'perfil-usuario',
+    loadChildren: () => import('./perfil-usuario/perfil-usuario-routing.module').then( m => m.PerfilUsuarioRoutingModule)
+  },
+  {
     path: '',
     redirectTo: 'inicio',
     pathMatch: 'full'

@@ -43,11 +43,10 @@
     </div>
 
     <ion-item color="light">
-      <ion-input  type="text" formControlName="telefone" placeholder="Telefone"></ion-input>
+      <ion-input  type="text" formControlName="telefone" [brmasker]="{mask:'(00) 0000-0000', len:15}" placeholder="Telefone"></ion-input>
     </ion-item>
-    <div *ngIf="registerFormControl.telefone.errors" class="erro invalid-feedback">
-      <div class="colorValidacoes" *ngIf="registerFormControl.telefone.errors.required">Preencha o telefone</div>
-      <div class="colorValidacoes" *ngIf="registerFormControl.telefone.errors.minlength">Preencha o telefone com o código de area</div>
+    <div *ngIf="mostraErro" class="erro invalid-feedback">
+      <div  class="colorValidacoes">Preencha o telefone</div>
     </div>
 
     <ion-item color="light">

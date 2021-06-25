@@ -51,6 +51,7 @@ export class CadastrapostComponent implements OnInit {
     this.post.imagem = this.imageUrl;
 
     this.postService.cadastra(this.post).subscribe(post => {
+      console.log('botão de cadastra apertado')
       this.presentToast();
       this.router.navigateByUrl('home');
       this.spinnerLoading = false;

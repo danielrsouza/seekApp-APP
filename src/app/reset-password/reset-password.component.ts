@@ -42,7 +42,7 @@ export class ResetPasswordComponent implements OnInit {
     this.spinnerLoading = true
     this.email = this.formResetPassowrd.value.email
     this.userService.exist(this.email).subscribe(exist => {
-      if (exist) {
+      if (exist.success) {
         this.authService.resetPassword(this.email).subscribe(resp => {
           this.spinnerLoading = false
           this.resetToast();

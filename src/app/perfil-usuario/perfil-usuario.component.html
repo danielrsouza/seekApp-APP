@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="dark">
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button (click)="home()"></ion-back-button>
     </ion-buttons>
     <ion-title>Perfil de {{userPerfil.nome}}</ion-title>
   </ion-toolbar>
@@ -17,4 +17,10 @@
       <p>{{userPerfil.telefone}}</p>
     </ion-label>
   </ion-item>
+
+  <ion-row>
+    <ion-col>
+      <ion-button color="dark" expand="block" (click)="logout()">Sair</ion-button>
+    </ion-col>
+  </ion-row>
 </ion-content>

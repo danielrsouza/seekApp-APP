@@ -22,6 +22,7 @@ export class HomePage implements OnInit{
   spinnerActions = false;
   show = false;
   currentUserAvatar;
+  mostraPost = true;
 
   constructor(
     private router: Router, 
@@ -35,12 +36,14 @@ export class HomePage implements OnInit{
   }
 
   ionViewWillEnter() {
+    console.log('entrou aqui na ionView home')
     if (!localStorage.getItem('token')) {
       this.router.navigateByUrl('inicio');
     }
 
-    this.spinnerLoading = true;
     if (this.longitude && this.latitude) {
+      this.spinnerLoading = true;
+      this.mostraPost = false;
       this.postService.buscaPosts(this.longitude, this.latitude).subscribe(post => {
         if (post.length == 0 ) {
           this.show = true
@@ -49,11 +52,14 @@ export class HomePage implements OnInit{
         }
         this.spinnerLoading = false;
         this.postComUsuarios = post;
+        this.mostraPost = true;
       })
     }
   }
 
   ngOnInit() {
+    console.log('entrou aqui na ngInit home')
+
     this.spinnerLoading = true;
     this.geolocation.getCurrentPosition()
     .then((resp) => {
@@ -67,11 +73,15 @@ export class HomePage implements OnInit{
         this.router.navigateByUrl('login');
      })
      .finally( () => {
+      console.log('entrou aqui na finally home')
+
         this.userService.buscaUserLogado().subscribe(user => {
           this.currentUserId = user.id
           this.currentUserAvatar = user.avatar
           localStorage.setItem('currentUser', JSON.stringify(user))
+          this.spinnerLoading = true;
           this.postService.buscaPosts(this.longitude, this.latitude).subscribe(post => {
+            console.log(  'buscando pos')
             if (post.length == 0 ) {
               this.show = true
             } else {
@@ -150,17 +160,14 @@ export class HomePage implements OnInit{
     }, 2000);
   }
 
+  perfilUsuario()
+  {
+    this.router.navigateByUrl('perfil-usuario');
+  }
+
   async presentToast(resp) {
     const toast = await this.toastController.create({
       message: resp,
-      duration: 6000
-    });
-    toast.present();
-  }
-
-  async logoutToast() {
-    const toast = await this.toastController.create({
-      message: 'Logout feito com sucesso!',
       duration: 6000
     });
     toast.present();
@@ -197,13 +204,7 @@ export class HomePage implements OnInit{
     });
   }
 
-  logout()
-  {
-    localStorage.clear();
-    sessionStorage.clear();
-    this.logoutToast();
-    this.router.navigateByUrl('inicio');
-  }
+
 
   mudaStatus(status, id)
   {

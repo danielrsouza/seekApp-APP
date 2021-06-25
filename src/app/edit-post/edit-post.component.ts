@@ -34,6 +34,7 @@ export class EditPostComponent implements OnInit {
       this.post = params;
       this.postDescricao = params.descricao;
       this.postImagem = params.imagem;
+      this.imageUrl = params.imagem;
       this.criaFormulario(this.postDescricao, this.postImagem)
     });
   }

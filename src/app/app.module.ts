@@ -32,6 +32,9 @@ import { EditPostModule } from './edit-post/edit-post/edit-post.module';
 import { InicioModule } from './inicio/inicio/inicio.module';
 import { InicioComponent } from './inicio/inicio.component';
 
+import { BrMaskerModule } from 'br-mask';
+
+
 @NgModule({
   declarations: [AppComponent, LoginComponent, CadastreseComponent, 
     CadastrapostComponent, DetalhePostComponent, PerfilComponent, 
@@ -43,7 +46,8 @@ import { InicioComponent } from './inicio/inicio.component';
             ReactiveFormsModule, CommonModule, 
             LoginModule, CadastreseModule, 
             FormsModule, DetalhePostModule, PerfilRoutingModule, HttpClientModule, 
-            EmailConfirmationModule, ResetPasswordModule, FormsModule, EditPostModule, InicioModule, ResetPasswordModule],
+            EmailConfirmationModule, ResetPasswordModule, FormsModule, EditPostModule, InicioModule, 
+            ResetPasswordModule, BrMaskerModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
     {
       provide: HTTP_INTERCEPTORS,
@@ -53,7 +57,7 @@ import { InicioComponent } from './inicio/inicio.component';
     InAppBrowser,
     Geolocation,
     PhotoLibrary,
-    Camera,
+    Camera
   ],
   bootstrap: [AppComponent],
 })

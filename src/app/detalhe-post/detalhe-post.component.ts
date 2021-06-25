@@ -29,6 +29,7 @@ export class DetalhePostComponent implements OnInit {
   userPost: Usuario;
   skeleton = false;
   avatar;
+  mostraComentarios = true;
 
   constructor(
     private route: ActivatedRoute, 
@@ -64,6 +65,7 @@ export class DetalhePostComponent implements OnInit {
 
   comment()
   {
+    this.mostraComentarios = false;
     if (this.inputComment == true) {
       this.inputComment = false;
     } else {
@@ -82,8 +84,8 @@ export class DetalhePostComponent implements OnInit {
 
   persistComentario()
   {
-    let currentUser: Usuario = JSON.parse(localStorage.getItem('currentUser'));
     this.spinnerLoading = true;
+    let currentUser: Usuario = JSON.parse(localStorage.getItem('currentUser'));
     this.novoComentario = this.formComentario.value;
     this.novoComentario.id_post = this.postId;
     this.novoComentario.id_usuario = currentUser.id;
@@ -102,6 +104,8 @@ export class DetalhePostComponent implements OnInit {
       })
     })
     console.log(this.formComentario);
+    this.spinnerLoading = false;
+    this.mostraComentarios = true;
   }
 
   visualizaPerfil()

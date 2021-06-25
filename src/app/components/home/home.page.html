@@ -1,12 +1,12 @@
 <ion-toolbar color="dark" style="padding: 10px;">
   <ion-buttons slot="secondary">
         <div *ngIf="currentUserAvatar; else semAvatarUser">
-          <ion-avatar (click)="logout()" style="width: 45px; height: 45px">
+          <ion-avatar (click)="perfilUsuario()" style="width: 45px; height: 45px">
             <img [src]="currentUserAvatar">
           </ion-avatar>
         </div>
         <ng-template #semAvatarUser>
-          <ion-avatar (click)="logout()" style="width: 45px; height: 45px">
+          <ion-avatar (click)="perfilUsuario()" style="width: 45px; height: 45px">
             <img src="../../../assets/avatar.png">
           </ion-avatar>  
         </ng-template>
@@ -100,59 +100,62 @@
     </ion-list>
   </div>
 
-  <div *ngIf="show" style="height: 10%;">
-    <ion-card-content>
-      <strong>Não existe nenhum post para sua localização...</strong>
-    </ion-card-content>
-  </div>
+  
+  <div *ngIf="mostraPost">
+    <div *ngIf="show" style="height: 10%;">
+      <ion-card-content>
+        <strong>Não existe nenhum post para sua localização...</strong>
+      </ion-card-content>
+    </div>
 
-  <div  *ngFor="let post of postComUsuarios">
-    <div class="container">
-      <ion-item>
-        <div *ngIf="post.user.avatar; else semAvatar">
-          <ion-avatar slot="start">
-            <img [src]="post.user.avatar">
-          </ion-avatar>
-        </div>
+    <div  *ngFor="let post of postComUsuarios">
+      <div class="container">
+        <ion-item>
+          <div *ngIf="post.user.avatar; else semAvatar">
+            <ion-avatar slot="start">
+              <img [src]="post.user.avatar">
+            </ion-avatar>
+          </div>
 
-        <ng-template #semAvatar>
-          <ion-avatar slot="start">
-            <img src="../../../assets/avatar.png">
-          </ion-avatar>  
-        </ng-template>
+          <ng-template #semAvatar>
+            <ion-avatar slot="start">
+              <img src="../../../assets/avatar.png">
+            </ion-avatar>  
+          </ng-template>
 
-        <ion-label style="margin-left: 15px;">
-          <a (click)="visualizaPerfil(post)">{{post.user.nome}}</a>
-          <p>{{post.created_at}}</p>
+          <ion-label style="margin-left: 15px;">
+            <a (click)="visualizaPerfil(post)">{{post.user.nome}}</a>
+            <p>{{post.created_at}}</p>
 
-          <p>{{post.descricao}}</p>
-        </ion-label>
-      </ion-item>
-      <img [src]="post.imagem" style="width: 100%; height: 350px!important;"> 
-      <ion-item-divider>
-        <ion-label>
+            <p>{{post.descricao}}</p>
+          </ion-label>
+        </ion-item>
+        <img [src]="post.imagem" style="width: 100%; height: 350px!important;"> 
+        <ion-item-divider>
+          <ion-label>
 
-        <div style="display: flex;" *ngIf="!spinnerActions">
-          <ion-icon name="eye" (click)="detalhePost(post)"></ion-icon>
+          <div style="display: flex;" *ngIf="!spinnerActions">
+            <ion-icon name="eye" (click)="detalhePost(post)"></ion-icon>
 
-          <div *ngIf="post.user.id == currentUserId">
-            <div *ngIf="post.status == true; else statusfalse">
-             <ion-icon (click)="mudaStatus(false, post.id)" name="lock-open-outline"></ion-icon>
+            <div *ngIf="post.user.id == currentUserId">
+              <div *ngIf="post.status == true; else statusfalse">
+              <ion-icon (click)="mudaStatus(false, post.id)" name="lock-open-outline"></ion-icon>
+              </div>
+              <ng-template #statusfalse><ion-icon (click)="mudaStatus(true, post.id)" name="lock-closed-outline"></ion-icon></ng-template>
             </div>
-            <ng-template #statusfalse><ion-icon (click)="mudaStatus(true, post.id)" name="lock-closed-outline"></ion-icon></ng-template>
+
+            <div *ngIf="post.user.id == currentUserId">
+              <ion-icon name="pencil" (click)="editPost(post)"></ion-icon>
+              <ion-icon name="trash" (click)="deletePost(post)"></ion-icon>
+            </div>
+          </div>
+          <div style="display: flex;" *ngIf="spinnerActions"  class="spinnerCenter">
+            <ion-spinner name="crescent"></ion-spinner>
           </div>
 
-          <div *ngIf="post.user.id == currentUserId">
-            <ion-icon name="pencil" (click)="editPost(post)"></ion-icon>
-            <ion-icon name="trash" (click)="deletePost(post)"></ion-icon>
-          </div>
-        </div>
-        <div style="display: flex;" *ngIf="spinnerActions"  class="spinnerCenter">
-          <ion-spinner name="crescent"></ion-spinner>
-        </div>
-
-        </ion-label>
-      </ion-item-divider>
+          </ion-label>
+        </ion-item-divider>
+      </div>
     </div>
   </div>
 
