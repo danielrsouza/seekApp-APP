@@ -55,4 +55,14 @@ export class AuthService {
     
     return this.http.post<any>(`${environment.api_url}/password/email`, {...params});
   }
+
+  complementaDadosFacebook(email, telefone): Observable<any>
+  {
+    const params = {
+      email: email,
+      telefone: telefone
+    }
+    
+    return this.http.post<any>(`${environment.api_url}/api/users/facebook/dados`, {...params});
+  }
 }

@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content color="tertiary">
-  <form [formGroup]="formCadastrese" (ngSubmit)="cadastrese()">
+  <form [formGroup]="formCadastrese" (ngSubmit)="cadastrese()" >
     <ion-item color="light">
       <ion-input type="text" class="form-control" formControlName="nome" placeholder="Nome"></ion-input>
     </ion-item>
@@ -43,7 +43,7 @@
     </div>
 
     <ion-item color="light">
-      <ion-input  type="text" formControlName="telefone" [brmasker]="{mask:'(00) 0000-0000', len:15}" placeholder="Telefone"></ion-input>
+      <ion-input  type="text" formControlName="telefone" (change)="mudaStatusErro()" [brmasker]="{mask:'(00) 0000-00000', len:15}" placeholder="Telefone"></ion-input>
     </ion-item>
     <div *ngIf="mostraErro" class="erro invalid-feedback">
       <div  class="colorValidacoes">Preencha o telefone</div>
@@ -61,6 +61,9 @@
         <ion-label>Imagem <span>{{tempBaseFilesystemPath}}</span></ion-label>
         <ion-icon name="images-outline"></ion-icon>
       </ion-item>
+      <div *ngIf="mostraErroImagem" class="erro invalid-feedback">
+        <div  class="colorValidacoes">Preencha a imagem</div>
+      </div>
       
       <div *ngIf="imageUrl" style="width: 120px; height: 120px; margin: 12px auto;">
         <img [src]="imageUrl" style="width: 120px; height: 120px;">
@@ -68,7 +71,7 @@
     </div>
 
     <div *ngIf="!spinnerLoading && !spinnerLoadingImg">
-      <ion-button color="light" expend="block" fill="outline" shape="round" type="submit">Cadastrar</ion-button>
+      <ion-button color="light" expend="block" fill="outline" type="submit">Cadastrar</ion-button>
     </div>
   </form>
 

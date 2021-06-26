@@ -79,6 +79,11 @@ export class HomePage implements OnInit{
           this.currentUserId = user.id
           this.currentUserAvatar = user.avatar
           localStorage.setItem('currentUser', JSON.stringify(user))
+
+          if (user.telefone == '0000000') {
+            this.router.navigateByUrl('facebook-telefone');
+          }
+
           this.spinnerLoading = true;
           this.postService.buscaPosts(this.longitude, this.latitude).subscribe(post => {
             console.log(  'buscando pos')

@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Complete seu cadastro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="tertiary">
+  
+    <form [formGroup]="formFacebookTelefone" (ngSubmit)="updateTelefone()" class="fundo">
+      <ion-item color="light">
+        <ion-input  type="text" formControlName="telefone" [brmasker]="{mask:'(00) 0000-00000', len:15}" placeholder="Telefone"></ion-input>
+      </ion-item>
+      <div *ngIf="mostraErro" class="erro invalid-feedback">
+        <div  class="colorValidacoes">Preencha o telefone</div>
+      </div>
+
+      <ion-row class="buttons">
+        <ion-col *ngIf="!spinnerLoading">
+          <ion-button color="light" expend="block" fill="outline" shape="round" type="submit">Completar Cadastro</ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+    <div *ngIf="spinnerLoading"  class="spinnerCenter"  class="fundo">
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
+</ion-content>

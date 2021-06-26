@@ -1,3 +1,7 @@
+.erro {
+    background-color: white; color: red; padding: 10px;
+}
+
 ion-spinner {
     display: block;
     margin: auto;
@@ -19,16 +23,8 @@ ion-content {
     }
 }
 
-ion-item {
-    margin: 16px;
-}
-
 ion-button {
     display: block;
     font-weight: bolder;
-    margin: 16px;
-}
-
-.erro {
-    background-color: white; color: red; margin: 16px; padding: 10px;
+    margin: 5px;
 }

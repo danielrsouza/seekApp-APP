@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FacebookLogin, FacebookLoginPlugin } from '@capacitor-community/facebook-login'
-import { Plugins, registerWebPlugin} from '@capacitor/core';
+import { FacebookLoginPlugin } from '@capacitor-community/facebook-login'
+import { Plugins} from '@capacitor/core';
 import { ToastController } from '@ionic/angular';
 import { AuthService } from '../auth/auth.service';
 import { UsuarioFacebook } from '../classes/usuarioFacebook';
@@ -98,24 +98,15 @@ export class InicioComponent implements OnInit {
                     this.authService.login(respCad).subscribe(respLogin => {
                       localStorage.setItem('token', respLogin.access_token);
                       this.presentToast();
-                      this.router.navigateByUrl('home')
+                      this.router.navigateByUrl('login')
                     }, error => {
                       this.erroCatch(error.message);
-                      this.router.navigateByUrl('home');
+                      this.router.navigateByUrl('login');
                     })
                 } // fim IF
-              }, error => {
-                this.erroCatch(error.message);
-                this.router.navigateByUrl('home');
               })
-          }, error => {
-            this.erroCatch(error.message);
-            this.router.navigateByUrl('home');
           })
         } // fim ELSE
-      }, error => {
-        this.erroCatch(error.message);
-        this.router.navigateByUrl('home');
       })
     });
   }

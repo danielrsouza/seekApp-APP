@@ -14,7 +14,7 @@ ion-content {
 ion-button {
     display: block;
     font-weight: bolder;
-    margin: 5px;
+    margin: 16px;
 }
 
 img {
@@ -47,9 +47,12 @@ ion-footer {
 }
 
 .erro {
-    background-color: white; color: red; padding: 10px;
+    background-color: white; color: red; padding: 10px; margin: 16px;
 }
 
+ion-item {
+    margin: 16px;
+}
 
 img {
     width: 100%;

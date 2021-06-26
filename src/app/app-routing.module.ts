@@ -47,6 +47,10 @@ const routes: Routes = [
     loadChildren: () => import('./perfil-usuario/perfil-usuario-routing.module').then( m => m.PerfilUsuarioRoutingModule)
   },
   {
+    path: 'facebook-telefone',
+    loadChildren: () => import('./facebook-telefone/facebook-telefone-routing.module').then( m => m.FacebookTelefoneRoutingModule)
+  },
+  {
     path: '',
     redirectTo: 'inicio',
     pathMatch: 'full'

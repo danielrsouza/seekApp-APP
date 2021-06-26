@@ -23,7 +23,8 @@ export class CadastreseComponent implements OnInit   {
   tempFilename;
   tempBaseFilesystemPath;
   spinnerLoadingImg = false;
-  mostraErro = false;;
+  mostraErro = false;
+  mostraErroImagem = false;
 
   constructor
   (
@@ -42,16 +43,19 @@ export class CadastreseComponent implements OnInit   {
   }
 
   cadastrese() {
-
     if (!this.telefone) {
       this.mostraErro = true;
     } else {
       this.mostraErro = false;
     }
-    // Monta as validaÃ§Ãµes que serÃ£o testadas ao enviar.
+    // Monta as validações que serão testadas ao enviar.
     this.criaValidators();
 
-    
+    if (!this.imageUrl) {
+      this.mostraErroImagem = true;
+    } else {
+      this.mostraErroImagem = false;
+    }
 
     this.spinnerLoading = true
     this.usuario = this.formCadastrese.value
@@ -77,8 +81,9 @@ export class CadastreseComponent implements OnInit   {
           this.presentToast();
           this.router.navigateByUrl('email-confirmation')
         }, error => {
-          this.errorToast(error.error.message);
+          this.errorToast("Erro ao cadastrar");
           this.spinnerLoading = false;
+          this.router.navigateByUrl('cadastrese')
         });
       },  error => {
         this.errorToast(error.error.message);
@@ -142,9 +147,19 @@ export class CadastreseComponent implements OnInit   {
       email: [this.email, [Validators.required, Validators.email]],
       password: [this.password, [Validators.required, Validators.minLength(8)]],
       passwordConfirm: [this.passwordConfirm, [Validators.required, Validators.minLength(8), Validators.maxLength(11)]],
-      telefone: [this.telefone],
-      data_nascimento: [this.data_nascimento, [Validators.required]]
+      data_nascimento: [this.data_nascimento, [Validators.required]],
+      telefone: [this.telefone, ],
+      imagem: [this.imageUrl],
     })
+  }
+
+  mudaStatusErro()
+  {
+    if(this.telefone) {
+      this.mostraErro = false;
+    } else {
+      this.mostraErro = true;
+    }
   }
 
 
@@ -167,6 +182,12 @@ export class CadastreseComponent implements OnInit   {
       let base64Image = 'data:image/jpeg;base64,' + imageData;
       this.imageUrl = base64Image;
       this.spinnerLoadingImg = false;
+
+      if (this.imageUrl) {
+        this.mostraErroImagem = false;
+      } else {
+        this.mostraErroImagem = true;
+      }
     
       
      }, (err) => {

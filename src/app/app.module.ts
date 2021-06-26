@@ -33,13 +33,15 @@ import { InicioModule } from './inicio/inicio/inicio.module';
 import { InicioComponent } from './inicio/inicio.component';
 
 import { BrMaskerModule } from 'br-mask';
+import { FacebookTelefoneModule } from './facebook-telefone/facebook-telefone/facebook-telefone-module';
+import { FacebookTelefoneComponent } from './facebook-telefone/facebook-telefone.component';
 
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, CadastreseComponent, 
     CadastrapostComponent, DetalhePostComponent, PerfilComponent, 
     EmailConfirmationComponent, ResetPasswordComponent, 
-    EditPostComponent, InicioComponent, ResetPasswordComponent],
+    EditPostComponent, InicioComponent, ResetPasswordComponent, FacebookTelefoneComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), 
             AppRoutingModule, HttpClientModule, 
@@ -47,7 +49,7 @@ import { BrMaskerModule } from 'br-mask';
             LoginModule, CadastreseModule, 
             FormsModule, DetalhePostModule, PerfilRoutingModule, HttpClientModule, 
             EmailConfirmationModule, ResetPasswordModule, FormsModule, EditPostModule, InicioModule, 
-            ResetPasswordModule, BrMaskerModule],
+            ResetPasswordModule, BrMaskerModule, FacebookTelefoneModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
     {
       provide: HTTP_INTERCEPTORS,
