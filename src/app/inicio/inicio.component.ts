@@ -85,6 +85,7 @@ export class InicioComponent implements OnInit {
             if (exist) {
               this.emailFacebookExiste();
               this.router.navigateByUrl('login');
+              return false;
             }
               let user: UsuarioFacebook = { 
                 id: res.id, email: res.email, data_nascimento: '00/00/0000', 
@@ -145,7 +146,7 @@ export class InicioComponent implements OnInit {
     this.spinnerLoading = false;
 
     const toast = await this.toastController.create({
-      message: "O email do facebook, já existe em nossa base!",
+      message: "O email do facebook já existe em nossa base!",
       duration: 4000
     });
     toast.present();

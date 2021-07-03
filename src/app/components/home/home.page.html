@@ -108,9 +108,12 @@
       </ion-card-content>
     </div>
 
-    <div  *ngFor="let post of postComUsuarios">
+
       <div class="container">
+        <div  *ngFor="let post of postComUsuarios">
+
         <ion-item>
+
           <div *ngIf="post.user.avatar; else semAvatar">
             <ion-avatar style="margin: 5px;" slot="start">
               <img [src]="post.user.avatar">
@@ -125,27 +128,42 @@
 
           <ion-label style="margin-left: 15px;">
             <a (click)="visualizaPerfil(post)">{{post.user.nome}}</a>
-            <p>{{post.created_at}}</p>
+            <p>{{post.created_at}}</p> 
+            <div style="display: flex; justify-content: flex-end;" *ngIf="post.user.id != currentUserId;">
+              <div *ngIf="post.status == true; else statusfalseUser">
+                <ion-chip outline color="danger">
+                  <ion-label>Perdido</ion-label>
+                </ion-chip>
+              </div>
+              <ng-template #statusfalseUser>
+                <ion-chip outline color="success">
+                  <ion-label>Encontrado</ion-label>
+                </ion-chip>
+              </ng-template>
+            </div>
 
+
+            <div style="display: flex; justify-content: flex-end;" *ngIf="post.user.id == currentUserId;">
+              <div *ngIf="post.status == true; else statusfalse">
+                <ion-chip (click)="mudaStatus(false, post.id)" outline color="danger">
+                  <ion-label>Perdido</ion-label>
+                </ion-chip>
+              </div>
+              <ng-template #statusfalse>
+                <ion-chip (click)="mudaStatus(true, post.id)" outline color="success">
+                  <ion-label>Encontrado</ion-label>
+                </ion-chip>
+              </ng-template>
+            </div>
           </ion-label>
-
         </ion-item>
         <p style="margin-left: 15px; padding: 8px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">{{post.descricao}}</p>
 
         <img [src]="post.imagem" style="width: 100%; height: 350px!important;"> 
         <ion-item-divider>
           <ion-label>
-
           <div style="display: flex;" *ngIf="!spinnerActions">
             <ion-icon name="eye" (click)="detalhePost(post)"></ion-icon>
-
-            <div *ngIf="post.user.id == currentUserId">
-              <div *ngIf="post.status == true; else statusfalse">
-              <ion-icon (click)="mudaStatus(false, post.id)" name="lock-open-outline"></ion-icon>
-              </div>
-              <ng-template #statusfalse><ion-icon (click)="mudaStatus(true, post.id)" name="lock-closed-outline"></ion-icon></ng-template>
-            </div>
-
             <div *ngIf="post.user.id == currentUserId">
               <ion-icon name="pencil" (click)="editPost(post)"></ion-icon>
               <ion-icon name="trash" (click)="deletePost(post)"></ion-icon>
