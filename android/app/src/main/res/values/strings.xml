@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">seekApp-APP</string>
-    <string name="title_activity_main">seekApp-APP</string>
+    <string name="app_name">seekApp</string>
+    <string name="title_activity_main">seekApp</string>
     <string name="package_name">com.seekapp.app</string>
     <string name="custom_url_scheme">com.seekapp.app</string>
     <string name="facebook_app_id">1404325036590780</string>

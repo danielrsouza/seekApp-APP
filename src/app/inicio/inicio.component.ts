@@ -82,10 +82,9 @@ export class InicioComponent implements OnInit {
         } else {
 
           this.userService.exist(res.email).subscribe(exist => {
-            if (exist) {
+            if (exist.success) {
               this.emailFacebookExiste();
               this.router.navigateByUrl('login');
-              return false;
             }
               let user: UsuarioFacebook = { 
                 id: res.id, email: res.email, data_nascimento: '00/00/0000', 
@@ -95,11 +94,12 @@ export class InicioComponent implements OnInit {
               
               this.cadastraService.cadastraFb(user).subscribe(respCad => {
                 if (respCad) {
-                    respCad.password = respCad.id;
+                  console.log('ee', respCad);
+                    respCad.password = user.password;
                     this.authService.login(respCad).subscribe(respLogin => {
                       localStorage.setItem('token', respLogin.access_token);
                       this.presentToast();
-                      this.router.navigateByUrl('login')
+                      this.router.navigateByUrl('home')
                     }, error => {
                       this.erroCatch(error.message);
                       this.router.navigateByUrl('login');
@@ -146,7 +146,7 @@ export class InicioComponent implements OnInit {
     this.spinnerLoading = false;
 
     const toast = await this.toastController.create({
-      message: "O email do facebook já existe em nossa base!",
+      message: "O email do facebook, já existe em nossa base!",
       duration: 4000
     });
     toast.present();
